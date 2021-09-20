@@ -1,6 +1,6 @@
 .idea/
-target/
-### Java template
+target
+*.iml
 # Compiled class file
 *.class
 
