@@ -13,4 +13,17 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ru.ifmo.se</groupId>
+            <artifactId>pokemon</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+    <!--
+    mvn install:install-file -Dfile=Pokemon.jar -DgroupId=ru.ifmo.se -DartifactId=pokemon -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+    -->
+
 </project>
