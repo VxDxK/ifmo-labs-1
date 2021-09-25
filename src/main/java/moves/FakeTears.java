@@ -12,11 +12,7 @@ public class FakeTears extends StatusMove {
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
-        if(pokemon.getStat(Stat.SPECIAL_DEFENSE)  >= -4){
-            pokemon.setMod(Stat.SPECIAL_DEFENSE, -2);
-        }else if(pokemon.getStat(Stat.SPECIAL_DEFENSE)  == -5){
-            pokemon.setMod(Stat.SPECIAL_DEFENSE, -1);
-        }
+        pokemon.setMod(Stat.SPECIAL_DEFENSE, -2);
     }
 
     @Override

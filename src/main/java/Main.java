@@ -1,8 +1,6 @@
 import pokemons.*;
 import ru.ifmo.se.pokemon.Battle;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
         Battle battleField = new Battle();
