@@ -15,11 +15,11 @@ public class Facade extends PhysicalMove {
                 pokemon.getCondition().equals(Status.PARALYZE)){
             damage *= 2;
         }
-        pokemon.setMod(Stat.HP, (int) damage);
+        super.applyOppDamage(pokemon, damage);
     }
 
     @Override
     protected String describe() {
-        return super.describe();
+        return "Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed.";
     }
 }

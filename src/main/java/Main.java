@@ -11,7 +11,6 @@ public class Main {
         battleField.addFoe(new NidoranF("Kella", 4));
         battleField.addFoe(new Nidorina("Lolita", 2));
         battleField.addFoe(new Nidoqueen("Irina", 3));
-
         battleField.go();
     }
 }

@@ -1,198 +1,319 @@
-Solrock Lando from the team Black enters the battle!
-NidoranF Kella from the team Blue enters the battle!
-NidoranF Kella attacks.
-Solrock Lando loses 3 hit points.
+    Solrock Lando from the team Striped enters the battle!
+    NidoranF Kella from the team Red enters the battle!
+    NidoranF Kella Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 4 hit points.
 
-Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
-NidoranF Kella decreases special defense.
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    NidoranF Kella decreases special defense.
 
-NidoranF Kella attacks.
-Solrock Lando loses 2 hit points.
+    NidoranF Kella Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
 
-Solrock Lando Swagger confuses the target and raises its Attack by two stages..
-NidoranF Kella increases attack.
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    NidoranF Kella increases attack.
 
-NidoranF Kella hits himself in confusion.
-NidoranF Kella loses 4 hit points.
+    NidoranF Kella hits himself in confusion.
+    NidoranF Kella loses 5 hit points.
+    
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    NidoranF Kella increases attack.
 
-Solrock Lando Double Slap hits 2-5 times per turn used. The probability of each interval is shown to the right, with the total power after each hit..
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-NidoranF Kella hits himself in confusion.
-NidoranF Kella loses 6 hit points.
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    NidoranF Kella decreases special defense.
 
-Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
-NidoranF Kella decreases special defense.
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-NidoranF Kella hits himself in confusion.
-NidoranF Kella loses 6 hit points.
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    NidoranF Kella decreases special defense.
 
-Solrock Lando Double Slap hits 2-5 times per turn used. The probability of each interval is shown to the right, with the total power after each hit..
+    NidoranF Kella Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 4 hit points.
 
-NidoranF Kella misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 11 hit points.
 
-Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
-NidoranF Kella decreases special defense.
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-NidoranF Kella attacks.
-Solrock Lando loses 4 hit points.
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    NidoranF Kella decreases special defense.
 
-Solrock Lando Double Slap hits 2-5 times per turn used. The probability of each interval is shown to the right, with the total power after each hit..
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-NidoranF Kella attacks.
-Solrock Lando loses 2 hit points.
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
 
-Solrock Lando misses
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-NidoranF Kella attacks.
-Solrock Lando loses 2 hit points.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Solrock Lando misses
+    NidoranF Kella Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 5 hit points.
 
-NidoranF Kella misses
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    NidoranF Kella increases attack.
 
-Solrock Lando Swagger confuses the target and raises its Attack by two stages..
-NidoranF Kella increases attack.
+    NidoranF Kella Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
 
-NidoranF Kella attacks.
-Solrock Lando loses 4 hit points.
-Solrock Lando faints.
-Buneary Loly from the team Black enters the battle!
-Buneary Loly misses
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    NidoranF Kella increases attack.
 
-NidoranF Kella hits himself in confusion.
-NidoranF Kella loses 5 hit points.
-NidoranF Kella faints.
-Nidorina Lolita from the team Blue enters the battle!
-Buneary Loly attacks.
-Nidorina Lolita loses 7 hit points.
+    NidoranF Kella hits himself in confusion.
+    NidoranF Kella loses 7 hit points.
 
-Nidorina Lolita misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 8 hit points.
 
-Buneary Loly misses
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-Nidorina Lolita attacks.
-Buneary Loly loses 4 hit points.
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
 
-Buneary Loly misses
+    NidoranF Kella hits himself in confusion.
+    NidoranF Kella loses 5 hit points.
 
-Nidorina Lolita misses
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    NidoranF Kella decreases special defense.
 
-Buneary Loly misses
+    NidoranF Kella Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    NidoranF Kella increases evasion.
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Buneary Loly decreases attack.
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    NidoranF Kella increases attack.
 
-Buneary Loly misses
+    NidoranF Kella hits himself in confusion.
+    NidoranF Kella loses 8 hit points.
+    NidoranF Kella faints.
+    Nidorina Lolita from the team Red enters the battle!
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Buneary Loly decreases attack.
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Buneary Loly misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Buneary Loly decreases attack.
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Buneary Loly misses
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Nidorina Lolita attacks.
-Buneary Loly loses 4 hit points.
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Buneary Loly misses
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Nidorina Lolita attacks.
-Buneary Loly loses 6 hit points.
+    Nidorina Lolita hits himself in confusion.
+    Nidorina Lolita loses 3 hit points.
 
-Buneary Loly attacks.
-Nidorina Lolita loses 3 hit points.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Nidorina Lolita misses
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Buneary Loly attacks.
-Nidorina Lolita loses 3 hit points.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Nidorina Lolita attacks.
-Buneary Loly loses 6 hit points.
-Buneary Loly faints.
-Lopunny Olly from the team Black enters the battle!
-Lopunny Olly misses
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Nidorina Lolita misses
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Lopunny Olly misses
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 2 hit points.
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Lopunny Olly decreases attack.
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 2 hit points.
 
-Lopunny Olly misses
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Nidorina Lolita misses
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    Nidorina Lolita decreases special defense.
 
-Lopunny Olly misses
+    Nidorina Lolita Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidorina Lolita increases evasion.
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Lopunny Olly decreases attack.
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Lopunny Olly misses
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 2 hit points.
 
-Nidorina Lolita misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 2 hit points.
 
-Lopunny Olly misses
+    Nidorina Lolita Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidorina Lolita increases evasion.
 
-Nidorina Lolita attacks.
-Lopunny Olly loses 5 hit points.
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Lopunny Olly misses
+    Nidorina Lolita hits himself in confusion.
+    Nidorina Lolita loses 5 hit points.
 
-Nidorina Lolita Growl lowers the target's Attack by one stage..
-Lopunny Olly decreases attack.
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Lopunny Olly Dragon Claw deals damage with no additional effect..
-Nidorina Lolita loses 3 hit points.
-Nidorina Lolita faints.
-Nidoqueen Irina from the team Blue enters the battle!
-Nidoqueen Irina misses
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Lopunny Olly misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
 
-Nidoqueen Irina Scary Face lowers the target's Speed by two stages..
-Lopunny Olly decreases speed.
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Lopunny Olly attacks.
-Critical hit!
-Nidoqueen Irina loses 7 hit points.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Lopunny Olly Dragon Claw deals damage with no additional effect..
-Critical hit!
-Nidoqueen Irina loses 6 hit points.
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
 
-Nidoqueen Irina Scary Face lowers the target's Speed by two stages..
-Lopunny Olly decreases speed.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+    Critical hit!
 
-Nidoqueen Irina Growl lowers the target's Attack by one stage..
-Lopunny Olly decreases attack.
+    Nidorina Lolita Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidorina Lolita increases evasion.
 
-Lopunny Olly misses
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 3 hit points.
 
-Nidoqueen Irina misses
+    Nidorina Lolita hits himself in confusion.
+    Nidorina Lolita loses 6 hit points.
 
-Lopunny Olly misses
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
 
-Nidoqueen Irina misses
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
 
-Lopunny Olly misses
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Nidoqueen Irina misses
+    Nidorina Lolita Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
 
-Lopunny Olly attacks.
-Nidoqueen Irina loses 4 hit points.
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Nidoqueen Irina attacks.
-Lopunny Olly loses 6 hit points.
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
 
-Lopunny Olly attacks.
-Nidoqueen Irina loses 6 hit points.
-Nidoqueen Irina faints.
-Team Blue loses its last Pokemon.
-The team Black wins the battle!
+    Solrock Lando Double Slap hits 2-5 times per turn used..
 
-Process finished with exit code 0
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 4 hit points.
+
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+
+    Nidorina Lolita Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidorina Lolita increases evasion.
+
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
+
+    Nidorina Lolita Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
+
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidorina Lolita increases attack.
+
+    Nidorina Lolita hits himself in confusion.
+    Nidorina Lolita loses 5 hit points.
+    Nidorina Lolita faints.
+    Nidoqueen Irina from the team Red enters the battle!
+    Nidoqueen Irina Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidoqueen Irina increases evasion.
+
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+
+    Nidoqueen Irina Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidoqueen Irina increases evasion.
+
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+
+    Nidoqueen Irina Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
+
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 13 hit points.
+
+    Nidoqueen Irina Scary Face lowers the target's Speed by two stages..
+    Solrock Lando decreases speed.
+
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidoqueen Irina increases attack.
+
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    Nidoqueen Irina decreases special defense.
+
+    Nidoqueen Irina Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidoqueen Irina increases evasion.
+
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    Nidoqueen Irina decreases special defense.
+
+    Nidoqueen Irina hits himself in confusion.
+    Nidoqueen Irina loses 4 hit points.
+
+    Solrock Lando Swagger confuses the target and raises its Attack by two stages..
+    Nidoqueen Irina increases attack.
+
+    Nidoqueen Irina Growl lowers the target's Attack by one stage..
+    Solrock Lando decreases attack.
+
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+    Critical hit!
+    Nidoqueen Irina loses 1 hit points.
+
+    Nidoqueen Irina Double Team raises the user's Evasiveness by one stage, thus making the user more difficult to hit..
+    Nidoqueen Irina increases evasion.
+
+    Solrock Lando Double Slap hits 2-5 times per turn used..
+    Critical hit!
+    Nidoqueen Irina loses 1 hit points.
+
+    Nidoqueen Irina Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 6 hit points.
+
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando is sleeping
+    Solrock Lando restores 6 hit points.
+
+    Nidoqueen Irina Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 5 hit points.
+
+    Solrock Lando User sleeps for 2 turns, but user is fully healed..
+    Solrock Lando restores 5 hit points.
+
+    Nidoqueen Irina Facade deals damage, and hits with double power if the user is burned, poisoned or paralyzed..
+    Solrock Lando loses 3 hit points.
+
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    Nidoqueen Irina decreases special defense.
+
+    Nidoqueen Irina hits himself in confusion.
+    Nidoqueen Irina loses 8 hit points.
+
+    Solrock Lando Fake Tears lowers the target's Special Defense by two stages..
+    Nidoqueen Irina decreases special defense.
+
+    Nidoqueen Irina hits himself in confusion.
+    Nidoqueen Irina loses 8 hit points.
+    Nidoqueen Irina faints.
+    Team Red loses its last Pokemon.
+    The team Striped wins the battle!
+
+    Process finished with exit code 0

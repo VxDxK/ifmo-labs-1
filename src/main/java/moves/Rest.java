@@ -10,7 +10,13 @@ public class Rest extends StatusMove {
     @Override
     protected void applySelfEffects(Pokemon pokemon) {
         Effect effect = new Effect().condition(Status.SLEEP).turns(2);
-        pokemon.setCondition(effect);
+        pokemon.addEffect(effect);
+        pokemon.setMod(Stat.HP,  -(int)(pokemon.getStat(Stat.HP) -  pokemon.getHP()));
+    }
+
+    @Override
+    protected boolean checkAccuracy(Pokemon pokemon, Pokemon pokemon1) {
+        return true;
     }
 
     @Override

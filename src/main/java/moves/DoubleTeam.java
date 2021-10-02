@@ -17,6 +17,11 @@ public class DoubleTeam extends StatusMove {
     }
 
     @Override
+    protected boolean checkAccuracy(Pokemon pokemon, Pokemon pokemon1) {
+        return true;
+    }
+
+    @Override
     protected String describe() {
         return "Double Team raises the user's Evasiveness by one stage, " +
                 "thus making the user more difficult to hit.";
