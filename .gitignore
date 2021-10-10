@@ -1,3 +1,5 @@
+lab0/
+*.iml
 .idea/
 target/
 ### Java template

@@ -17,6 +17,6 @@ chmod a-rwx rhyhorn9; chmod u+r rhyhorn9; chmod o+r rhyhorn9
 chmod 570 togepi9
 chmod 400 togepi9/dragonite
 chmod 755 togepi9/kricketot
-chmod a-rwx togepi9/happiny; chmod u+wx togepi9/happiny;chmod g+rwx togepi9/happiny;chmod o+wx togepi9/happiny
+chmod u+wx togepi9/happiny;chmod g+rwx togepi9/happiny;chmod o+wx togepi9/happiny
 chmod 046 togepi9/tranquill
 chmod 064 togepi9/swadloon
