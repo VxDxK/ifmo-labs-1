@@ -10,8 +10,7 @@ echo "Живет Cave Freshwater" > lab0/dratini3
 mkdir lab0/hitmontop8
 echo -e "Способности Pure Blood\nMach Speed Inner Focus White Smoke" > lab0/hitmontop8/dragonite
 mkdir lab0/hitmontop8/aron
-echo "Тип диеты" > lab0/hitmontop8/salamence
-echo "Carnivore" >> lab0/hitmontop8/salamence
+echo -e "Тип диеты\nCarnivore" > lab0/hitmontop8/salamence
 mkdir lab0/hitmontop8/tyranitar
 echo -e "Возможности Overland=10 Surface=7 Jump=3 Power=3\nIntelligence=4 Tracker=0" > lab0/linoone9
 echo "Тип покемона GROUNG" > lab0/rhyhorn9

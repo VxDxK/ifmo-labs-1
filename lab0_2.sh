@@ -13,10 +13,10 @@ chmod 753 hitmontop8/aron
 chmod 004 hitmontop8/salamence
 chmod 363 hitmontop8/tyranitar
 chmod 620 linoone9
-chmod a-rwx rhyhorn9; chmod u+r rhyhorn9; chmod o+r rhyhorn9
+chmod a-rwx rhyhorn9; chmod uo=r rhyhorn9
 chmod 570 togepi9
 chmod 400 togepi9/dragonite
 chmod 755 togepi9/kricketot
-chmod u+wx togepi9/happiny;chmod g+rwx togepi9/happiny;chmod o+wx togepi9/happiny
+chmod a-rwx togepi9/happiny;chmod u+wx togepi9/happiny;chmod g+rwx togepi9/happiny;chmod o+wx togepi9/happiny
 chmod 046 togepi9/tranquill
 chmod 064 togepi9/swadloon
