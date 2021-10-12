@@ -1,22 +1,21 @@
 package moves;
 
 import ru.ifmo.se.pokemon.Pokemon;
-import ru.ifmo.se.pokemon.Stat;
 import ru.ifmo.se.pokemon.StatusMove;
 import ru.ifmo.se.pokemon.Type;
 
-public class Growl extends StatusMove {
-    public Growl() {
+public class TeeterDance extends StatusMove {
+    public TeeterDance() {
         super(Type.NORMAL, 0, 100);
     }
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
-        pokemon.setMod(Stat.ATTACK, -1);
+        pokemon.confuse();
     }
 
     @Override
     protected String describe() {
-        return "Growl lowers the target's Attack by one stage.";
+        return "Teeter Dance causes all adjacent Pokémon to become confused.";
     }
 }
