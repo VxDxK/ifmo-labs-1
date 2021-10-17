@@ -1,5 +1,6 @@
 .idea/
 target/
+__pycache__/
 ### Java template
 # Compiled class file
 *.class
