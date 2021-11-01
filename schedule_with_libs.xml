@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<all>
+	<schedule type="dict">
+		<weekday type="list">
+			<item type="dict">
+				<name type="str">Thursday</name>
+				<lessons type="list">
+					<item type="dict">
+						<name type="str">DM</name>
+						<time type="str">13:30-15:00</time>
+						<classroom type="str">285</classroom>
+						<teacher type="str">Polyakov</teacher>
+					</item>
+				</lessons>
+			</item>
+		</weekday>
+	</schedule>
+</all>
+

@@ -1,0 +1,15 @@
+<schedule>
+    <weekday>
+        <element>
+            <name>Thursday</name>
+            <lessons>
+                <element>
+                    <name>DM</name>
+                    <time>13:30-15:00</time>
+                    <classroom>285</classroom>
+                    <teacher>Polyakov</teacher>
+                </element>
+            </lessons>
+        </element>
+    </weekday>
+</schedule>

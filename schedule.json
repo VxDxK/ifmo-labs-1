@@ -1,0 +1,17 @@
+{
+    "schedule":{
+        "weekday":[
+            {
+                "name":"Thursday",
+                "lessons":[
+                    {
+                        "name":"DM",
+                        "time":"13:30-15:00",
+                        "classroom":"285",
+                        "teacher":"Polyakov"
+                    }
+                ]
+            }
+        ]
+    }
+}
