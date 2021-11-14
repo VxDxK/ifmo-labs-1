@@ -1,0 +1,32 @@
+name: ReadMe generator
+on:
+  push:
+    branches:    
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a readme regeneration
+        run: |
+          git config --global user.email "helper@nothing.com"
+          git config --global user.name "VxDxK_help_bot"
+          git fetch
+          git checkout master
+          cat template.md > README.md 
+          for i in $(git branch -rl | tr '*' ' ');do 
+            if [[ "${i:7}" != "master"  &&  "${i:7}" != "empty" ]]; then
+              echo "[${i:7}](https://github.com/VxDxK/ifmo-labs-1/tree/${i:7})" >> README.md 
+            fi
+          done
+          cat README.md
+          git add README.md
+          if [[ `git status --porcelain` ]]; then
+            git commit -m "Перегенерация"
+            git push
+          fi
+          
