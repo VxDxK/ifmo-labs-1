@@ -1,12 +1,25 @@
-public class Kozlik extends Shorty implements Worker {
+public class Kozlik extends Shorty implements Actor {
+    private final Mood[] moods = {Mood.TENSE, Mood.ALERT, Mood.DAZED, Mood.SADNESS};
     @Override
     public void watch() {
         System.out.println("Ждет мячик в лицо");
     }
 
     @Override
-    public void catchBall() {
-        System.out.println("В козлика попали мячом");
+    public void setMood(Mood mood) {
+        System.out.println("Козлик: " + mood.getTranslation());
+    }
+
+    @Override
+    public void eat(Food food) {
+        System.out.println("Козлик ест " + food.getClass().getSimpleName());
+        setMood(Mood.FUN);
+    }
+
+    @Override
+    public void catchBall(int power) {
+        System.out.print("В козлика попали мячом ");
+        setMood(moods[power]);
     }
 
     public void earn(){
@@ -14,10 +27,23 @@ public class Kozlik extends Shorty implements Worker {
     }
 
     @Override
-    public void move() throws InterruptedException {
-        System.out.println("Козлик пришел в балаганчик.");
-        Thread.sleep(1000);
-        System.out.println("Козлик встал на место актера Балаганчика, начал ловить мячи лицом.");
+    public void join(Business business) throws ClosedBuildingException {
+        if(business instanceof Balaganchik){
+            ((Balaganchik) business).setPunchingBag(this);
+            System.out.println("Козлик пришел в " + business.getClass().getSimpleName());
+            setMood(Mood.TENSE);
+            System.out.println("Козлик встал на сцену, просунул голову за занавеску");
+            setMood(Mood.ALERT);
+        }else if(business instanceof Cafe){
+            System.out.println("Козлик пришел в Cafe");
+            business.addVisitor(this);
+        }
+    }
+
+
+    @Override
+    public void throwBall(Shorty shorty, int power) {
+        System.out.println("У козлика нет мячика");
     }
 
     @Override

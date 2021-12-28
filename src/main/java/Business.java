@@ -18,7 +18,7 @@ public abstract class Business {
         this.status = status;
     }
 
-
+    public abstract void addVisitor(Shorty shorty);
 
     public int getProfit() {
         return profit;

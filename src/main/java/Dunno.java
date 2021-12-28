@@ -14,7 +14,24 @@ public class Dunno extends Shorty{
     }
 
     @Override
-    public void move() {
-        System.out.println("Незнайка пришел в Балаганчик");
+    public void join(Business business) {
+        System.out.println("Незнайка пришел в " + business.getClass().getSimpleName());
+        business.addVisitor(this);
+    }
+
+    @Override
+    public void eat(Food food) {
+        setMood(Mood.RELAXED);
+        System.out.println("Незнайка ест " + food.getClass().getSimpleName());
+    }
+
+    @Override
+    public void throwBall(Shorty shorty, int power) {
+
+    }
+
+    @Override
+    public void catchBall(int power) {
+
     }
 }

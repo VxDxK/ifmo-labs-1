@@ -11,16 +11,24 @@ public class Balaganchik extends Business {
     }
 
     public void startScene(){
-        while (visitors.size() != 1){
+        double increase_power = 0.0;
+        while (visitors.size() != 2){
             for(int i = 0; i < visitors.size(); i++){
                 Shorty v = visitors.get(i);
                 v.watch();
+                if(v.equals(owner)){
+                    System.out.println("Хозяин ухмыляется");
+                }
                 if(v instanceof Visitor){
                     Visitor now = (Visitor) v;
-                    now.throwBall();
-                    punchingBag.catchBall();
+                    now.throwBall(punchingBag, (int)(increase_power));
+                    if(increase_power + 0.3 < 3){
+                        increase_power += 0.1;
+                    }
                     if(now.getNumberOfBalls() <= 0){
-                        System.out.println("Зритель ушел, температура упала");
+                        if(System.getProperty("full") != null){
+                            System.out.println("Зритель ушел, температура упала");
+                        }
                         visitors.remove(v);
                         temp--;
                     }
@@ -42,11 +50,16 @@ public class Balaganchik extends Business {
         for(int i = 0; i < count; i++){
             Visitor now = new Visitor();
             owner.sell(now);
+            now.join(this);
             visitors.add(now);
         }
     }
 
-    public void addVisitor(Shorty shorty){
+    @Override
+    public void addVisitor(Shorty shorty) throws ClosedBuildingException{
+        if(status == Status.CLOSED){
+            throw new ClosedBuildingException("Вы не можете посетить закрытый Балаганчик");
+        }
         visitors.add(shorty);
     }
 

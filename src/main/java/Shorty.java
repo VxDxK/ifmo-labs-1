@@ -21,19 +21,23 @@ public abstract class Shorty {
         return currency;
     }
 
-    public void move() throws InterruptedException {
+    public abstract void join(Business business) throws ClosedBuildingException;
 
+    public void laugh(){
+        System.out.println("Смеется");
     }
 
-    public void throwBall(){
-
+    public void eat(Food food){
+        System.out.println("Коротыха ест");
     }
 
-    public void catchBall(){
+    public abstract void throwBall(Shorty shorty, int power);
 
-    }
+    public abstract void catchBall(int power);
 
     public abstract void watch();
+
+
 
     @Override
     public boolean equals(Object o) {

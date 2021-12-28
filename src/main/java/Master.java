@@ -12,7 +12,9 @@ public class Master extends Shorty implements Businessman{
     public void sell(Shorty shorty) {
         if(shorty instanceof Visitor){
             Visitor now = (Visitor) shorty;
-            System.out.println("Владелец  продал мяч");
+            if(System.getProperty("full") != null){
+                System.out.println("Владелец  продал мяч");
+            }
             now.setNumberOfBalls((int)((random() + 1) * 3));
             business.setProfit(business.getProfit() + 1);
         }
@@ -20,17 +22,39 @@ public class Master extends Shorty implements Businessman{
 
     @Override
     public void pay(Shorty shorty) {
-        if(shorty instanceof Worker){
+        if(shorty instanceof Actor){
             System.out.println("Владелец Балаганчика выплатил деньги актеру");
-            Worker worker = (Worker) shorty;
+            Actor actor = (Actor) shorty;
             shorty.setCurrency(getCurrency() + 3);
-            worker.earn();
+            actor.earn();
         }
     }
 
     @Override
     public Business getBusiness() {
         return business;
+    }
+
+    @Override
+    public void join(Business business) {
+        if(business instanceof Balaganchik){
+            ((Balaganchik) business).addVisitor(this);
+        }
+    }
+
+    @Override
+    public void throwBall(Shorty shorty, int power) {
+
+    }
+
+    @Override
+    public void catchBall(int power) {
+
+    }
+
+    @Override
+    public void watch() {
+        System.out.println("Хозяин смотрит с наслаждением");
     }
 
     @Override
