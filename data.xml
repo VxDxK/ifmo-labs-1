@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<collection>
+    <tickets>
+        <id>291017834</id>
+        <name>Roma</name>
+        <coordinates>
+            <x>0.0</x>
+            <y>0.0</y>
+        </coordinates>
+        <creationDate>2022-03-23T05:51:06.792</creationDate>
+        <price>500</price>
+        <discount>0</discount>
+        <comment>not Roman</comment>
+        <type>USUAL</type>
+        <person>
+            <weight>44.0</weight>
+            <eyeColor>RED</eyeColor>
+            <hairColor>BLUE</hairColor>
+            <nationality>FRANCE</nationality>
+        </person>
+    </tickets>
+    <tickets>
+        <id>1237271114</id>
+        <name>Bebrik</name>
+        <coordinates>
+            <x>3.0</x>
+            <y>2.0</y>
+        </coordinates>
+        <creationDate>2022-03-23T05:52:23.165</creationDate>
+        <price>700</price>
+        <discount>0</discount>
+        <comment>no levan</comment>
+        <type>BUDGETARY</type>
+    </tickets>
+    <tickets>
+        <id>90459009</id>
+        <name>Vadim</name>
+        <coordinates>
+            <x>56.0</x>
+            <y>715.0</y>
+        </coordinates>
+        <creationDate>2022-03-23T07:24:44.977</creationDate>
+        <price>1000</price>
+        <discount>100</discount>
+        <comment>OTEC</comment>
+        <type>VIP</type>
+        <person>
+            <weight>120.0</weight>
+            <eyeColor>BROWN</eyeColor>
+            <hairColor>BLACK</hairColor>
+            <nationality>RUSSIA</nationality>
+        </person>
+    </tickets>
+</collection>
