@@ -1,6 +1,6 @@
 package core.readers;
 
-import core.ValidationException;
+import core.server.ValidationException;
 import core.pojos.Color;
 import core.pojos.Country;
 import core.pojos.Person;

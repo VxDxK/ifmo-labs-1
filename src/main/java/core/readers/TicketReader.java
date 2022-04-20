@@ -1,7 +1,6 @@
 package core.readers;
 
-import core.ValidationException;
-import core.pojos.Color;
+import core.server.ValidationException;
 import core.pojos.Ticket;
 import core.pojos.TicketType;
 

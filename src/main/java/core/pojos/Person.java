@@ -1,10 +1,11 @@
 package core.pojos;
 
-import core.ValidationException;
+import core.server.ValidationException;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Objects;
  */
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Person {
+public class Person implements Serializable {
     /**
      * Positive
      */
@@ -77,7 +78,7 @@ public class Person {
     /**
      * Builder to make person
      */
-    public static class PersonBuilder{
+    public static class PersonBuilder implements Serializable{
         private float weight;
         private Color eyeColor;
         private Color hairColor;
@@ -143,5 +144,14 @@ public class Person {
             return new Person(weight, eyeColor, hairColor, nationality);
         }
 
+        @Override
+        public String toString() {
+            return "PersonBuilder{" +
+                    "weight=" + weight +
+                    ", eyeColor=" + eyeColor +
+                    ", hairColor=" + hairColor +
+                    ", nationality=" + nationality +
+                    '}';
+        }
     }
 }

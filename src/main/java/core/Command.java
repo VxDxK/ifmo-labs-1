@@ -1,4 +1,6 @@
-package core.commands;
+package core;
+
+import core.packet.CommandContext;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,4 +31,8 @@ public interface Command {
      * @return all aliases
      */
     List<String> getAliases();
+
+    default boolean elementRequire (){
+        return false;
+    }
 }

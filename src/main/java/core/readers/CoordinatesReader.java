@@ -1,6 +1,6 @@
 package core.readers;
 
-import core.ValidationException;
+import core.server.ValidationException;
 import core.pojos.Coordinates;
 
 import java.io.BufferedReader;

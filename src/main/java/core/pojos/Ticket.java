@@ -1,13 +1,13 @@
 package core.pojos;
 
-import core.ValidationException;
+import core.server.ValidationException;
 import util.LocalDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 @XmlRootElement(name = "ticket")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Ticket implements Comparable<Ticket>{
+public class Ticket implements Comparable<Ticket>, Serializable {
     /**
      * Positive and auto-gen
      */
@@ -140,7 +140,7 @@ public class Ticket implements Comparable<Ticket>{
     /**
      * Builder to make Ticket
      */
-    public static class TicketBuilder {
+    public static class TicketBuilder implements Serializable{
         private int id;
         private String name;
         private Coordinates coordinates;
@@ -303,6 +303,20 @@ public class Ticket implements Comparable<Ticket>{
             return new Ticket(id, name, coordinates, creationDate, price, discount, comment, type, person);
         }
 
+        @Override
+        public String toString() {
+            return "TicketBuilder{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", coordinates=" + coordinates +
+                    ", creationDate=" + creationDate +
+                    ", price=" + price +
+                    ", discount=" + discount +
+                    ", comment='" + comment + '\'' +
+                    ", type=" + type +
+                    ", person=" + person +
+                    '}';
+        }
 
         public int getId() {
             return id;

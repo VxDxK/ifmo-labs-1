@@ -1,10 +1,11 @@
 package core.pojos;
 
-import core.ValidationException;
+import core.server.ValidationException;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Pojo class of coordinates
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "coordinates")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Coordinates {
+public class Coordinates implements Serializable {
     /**
      * More than -117 not null
      */
@@ -51,7 +52,7 @@ public class Coordinates {
     /**
      * Builder of coordinates
      */
-    public  static class CoordinatesBuilder{
+    public static class CoordinatesBuilder implements Serializable{
         private Float x;
         private Double y;
 
@@ -104,6 +105,13 @@ public class Coordinates {
             return new Coordinates(x, y);
         }
 
+        @Override
+        public String toString() {
+            return "CoordinatesBuilder{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    '}';
+        }
     }
 
 }

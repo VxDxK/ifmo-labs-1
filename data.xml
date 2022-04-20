@@ -51,4 +51,42 @@
             <nationality>RUSSIA</nationality>
         </person>
     </tickets>
+    <tickets>
+        <id>1749228781</id>
+        <name>Bebra</name>
+        <coordinates>
+            <x>5.0</x>
+            <y>-43.0</y>
+        </coordinates>
+        <creationDate>2022-04-20T03:24:32.959</creationDate>
+        <price>5600</price>
+        <discount>34</discount>
+        <comment>no sdim</comment>
+        <type>USUAL</type>
+        <person>
+            <weight>100.0</weight>
+            <eyeColor>GREEN</eyeColor>
+            <hairColor>BROWN</hairColor>
+            <nationality>RUSSIA</nationality>
+        </person>
+    </tickets>
+    <tickets>
+        <id>655651497</id>
+        <name>Artem</name>
+        <coordinates>
+            <x>-4.0</x>
+            <y>-34.0</y>
+        </coordinates>
+        <creationDate>2022-04-20T03:24:38.819</creationDate>
+        <price>5000</price>
+        <discount>0</discount>
+        <comment>no cimm</comment>
+        <type>VIP</type>
+        <person>
+            <weight>100.0</weight>
+            <eyeColor>GREEN</eyeColor>
+            <hairColor>RED</hairColor>
+            <nationality>THAILAND</nationality>
+        </person>
+    </tickets>
 </collection>
