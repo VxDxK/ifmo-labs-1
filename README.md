@@ -13,3 +13,4 @@
 [proga-lab-3218](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-3218)
 [proga-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-4)
 [proga-lab-5](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-5)
+[proga-lab-6](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-6)
