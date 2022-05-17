@@ -2,7 +2,7 @@ package core.client.commands;
 
 import core.client.ClientCommandManager;
 import core.AbstractCommand;
-import core.packet.CommandContext;
+import core.packet.CommandContextPack;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class ExecScriptCommand extends AbstractCommand<ClientCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
 
         if(arguments.length == 0){
             System.out.println("no file was specified; Call stack: " + Arrays.toString(callStack.toArray()));

@@ -1,6 +1,4 @@
-package core;
-
-import core.packet.CommandContext;
+package util;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

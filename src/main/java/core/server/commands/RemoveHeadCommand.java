@@ -1,17 +1,24 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import core.pojos.TicketWrap;
+import core.server.database.TicketDAO;
+import core.server.database.TicketDAOImpl;
+import core.server.database.UserDAO;
+import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.pojos.Ticket;
 import core.server.ServerCommandManager;
-import core.server.ValidationException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Class providing remove head command
  */
@@ -22,20 +29,23 @@ public class RemoveHeadCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public synchronized void handle(String[] arguments, CommandContextPack context) throws IOException {
 
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
 
+        TicketDAO dao = manager.getTicketDAO();
+        UserDAO userDAOImpl = manager.getUserDAO();
 
-//        Writer writer = manager.getWriter();
-        Ticket ticket = manager.getCollection().getSourceCollection().getFirst();
-        if(ticket == null){
-            builder.append("Collection is empty :( ");
-        }else {
-            builder.append(ticket);
-            manager.getCollection().remove(ticket);
+        List<TicketWrap> all = dao.all().stream().filter(x -> x.getUser().equals(context.getUser())).collect(Collectors.toList());
+
+        if(all.size() == 0){
+            builder.append("You dont have any elements");
+        }else{
+            builder.append(all.get(0));
+            dao.delete(all.get(0));
+            manager.getCollection().remove(all.get(0));
         }
 
         try(SerializationHelper serializationHelper = new SerializationHelper()) {
@@ -58,4 +68,10 @@ public class RemoveHeadCommand extends AbstractCommand<ServerCommandManager> {
     public List<String> getAliases() {
         return Arrays.asList("remove_head");
     }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(false, true);
+    }
+
 }

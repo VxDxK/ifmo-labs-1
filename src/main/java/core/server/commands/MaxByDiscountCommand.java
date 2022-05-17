@@ -1,16 +1,17 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import core.pojos.TicketWrap;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.pojos.Ticket;
 import core.server.ServerCommandManager;
-import core.server.ValidationException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class MaxByDiscountCommand extends AbstractCommand<ServerCommandManager> 
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
 
         InfoPack pack = new InfoPack();
 
@@ -34,9 +35,9 @@ public class MaxByDiscountCommand extends AbstractCommand<ServerCommandManager> 
             builder.append("Collection is empty");
         }else{
             try {
-                Optional<Integer> discount = manager.getCollection().stream().map(Ticket::getDiscount).max(Integer::compareTo);
+                Optional<TicketWrap> discount = manager.getCollection().stream().max(Comparator.comparingInt(x -> x.getTicket().getDiscount()));
                 discount.ifPresent((x) ->{
-                    builder.append("Max discount: ").append(x);
+                    builder.append("Max by discount: ").append(x.getTicket().toString());
                 });
             }catch (NumberFormatException e){
                 builder.append("Wrong argument");

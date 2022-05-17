@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS s338999_users(
+    id  SERIAL NOT NULL PRIMARY KEY,
+    login text NOT NULL,
+    passMD5 text
+);
+
+CREATE SEQUENCE s338999_idGen
+INCREMENT 1
+MINVALUE 0
+MAXVALUE 2147483647
+START 0
+
+SELECT nextval('s338999_idgen')
+
+CREATE TABLE IF NOT EXISTS s338999_tickets(
+    id INT NOT NULL PRIMARY KEY,
+    name TEXT,
+    x float4,
+    y float8,
+    creationDate TEXT,
+    price INT,
+    discount INT,
+    comment TEXT,
+    type TEXT,
+    weight float4,
+    eyeColor TEXT,
+    hairColor TEXT,
+    nationality TEXT,
+    ownerID INT
+)

@@ -1,8 +1,9 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import core.pojos.TicketWrap;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.pojos.Ticket;
 import core.server.ServerCommandManager;
@@ -22,13 +23,13 @@ public class PrintFieldAscendingComment extends AbstractCommand<ServerCommandMan
         super(manager);
     }
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
 
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append(manager.getCollection().stream().map(Ticket::getComment).sorted(String::compareTo)
+        builder.append(manager.getCollection().stream().map(TicketWrap::getTicket).map(Ticket::getComment).sorted(String::compareTo)
                 .collect(Collectors.toList())).append("\n");
 
         try(SerializationHelper serializationHelper = new SerializationHelper()) {

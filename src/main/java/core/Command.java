@@ -1,6 +1,7 @@
 package core;
 
-import core.packet.CommandContext;
+import core.packet.CommandContextPack;
+import util.CommandExternalInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface Command {
      * @param arguments command argument
      * @param context provide some stuff to use it in runtime
      */
-    void handle(String[] arguments, CommandContext context) throws IOException;
+    void handle(String[] arguments, CommandContextPack context) throws IOException;
 
     /**
      * @return string with help info
@@ -32,7 +33,7 @@ public interface Command {
      */
     List<String> getAliases();
 
-    default boolean elementRequire (){
-        return false;
+    default CommandExternalInfo externalInfo(){
+        return new CommandExternalInfo(false, false);
     }
 }

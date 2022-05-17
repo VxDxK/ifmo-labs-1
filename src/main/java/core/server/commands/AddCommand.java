@@ -1,14 +1,18 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import core.pojos.Ticket;
+import core.pojos.TicketWrap;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.server.ServerCommandManager;
 import core.server.ValidationException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,29 +26,36 @@ public class AddCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public synchronized void handle(String[] arguments, CommandContextPack context) throws IOException {
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
 
-        if(elementRequire() && context.getElement() == null){
+        if(context.getElement() == null){
             builder.append("No element was given");
         }else{
             try {
-                if(manager.getCollection().add(context.getElement())){
-                    builder.append("Element added");
+                int newId = manager.getSeq().nextValue();
+                Ticket.TicketBuilder ticketBuilder = context.getElement();
+                ticketBuilder.setId(newId);
+                ticketBuilder.setCreationDate(LocalDateTime.now());
+
+                if(manager.getUserDAO().checkAuth(context.getUser())){
+                    builder.append("No such user in db");
                 }else{
-                    builder.append("Element wasn`t added");
+                    TicketWrap wrap = new TicketWrap(ticketBuilder.build(), context.getUser());
+                    manager.getTicketDAO().add(wrap);
+                    manager.getCollection().add(wrap);
+                    builder.append("Element added");
                 }
             } catch (ValidationException e) {
-                builder.append("Element is not valid");
+                builder.append("Element is not valid: ").append(e.getMessage());
             }
         }
 
         try(SerializationHelper serializationHelper = new SerializationHelper()) {
             pack.setString(builder.toString());
             ByteBuffer byteBuffer = serializationHelper.serialize(pack);
-            System.out.println(Arrays.toString(byteBuffer.array()));
             manager.getChannel().send(byteBuffer, context.getSocketAddress());
         }catch (IOException e) {
             e.printStackTrace();
@@ -62,7 +73,7 @@ public class AddCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public boolean elementRequire() {
-        return true;
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(true, true);
     }
 }

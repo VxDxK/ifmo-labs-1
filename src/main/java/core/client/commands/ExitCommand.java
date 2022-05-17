@@ -2,7 +2,7 @@ package core.client.commands;
 
 import core.AbstractCommand;
 import core.client.ClientCommandManager;
-import core.packet.CommandContext;
+import core.packet.CommandContextPack;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class ExitCommand extends AbstractCommand<ClientCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
         Thread.currentThread().interrupt();
     }
 

@@ -99,15 +99,7 @@ public class TicketReader extends ElementReader<Ticket.TicketBuilder> {
         }
 
         PersonReader personReader = new PersonReader();
-        writer.write("Wanna enter person y/n: ");
-        writer.flush();
-        String inp = reader.readLine();
-        if(inp.equalsIgnoreCase("y")){
-            builder.setPerson(personReader.read(reader, writer));
-        }else{
-            builder.setPerson(null);
-        }
-
+        builder.setPerson(personReader.read(reader, writer));
 
         return builder;
     }

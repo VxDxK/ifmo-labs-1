@@ -1,16 +1,16 @@
 package core.packet;
 
 import core.pojos.Ticket;
+import core.pojos.UserClient;
 
 import java.io.Serializable;
-import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.Arrays;
 
 /**
  * Class providing info for your command execution
  */
-public class CommandContext implements Serializable {
+public class CommandContextPack implements Serializable {
     String commandPeek;
     String[] args;
     /**
@@ -20,26 +20,37 @@ public class CommandContext implements Serializable {
 
     SocketAddress socketAddress;
 
-    public CommandContext() {
+    UserClient.UserServer server;
+
+    public CommandContextPack() {
     }
 
-    public CommandContext(String commandPeek, String[] args, Ticket.TicketBuilder element) {
+    public CommandContextPack(String commandPeek, String[] args, Ticket.TicketBuilder element) {
         this.commandPeek = commandPeek;
         this.args = args;
         this.element = element;
     }
 
-    public CommandContext setCommandPeek(String commandPeek) {
+    public UserClient.UserServer getUser() {
+        return server;
+    }
+
+    public CommandContextPack setUser(UserClient.UserServer server) {
+        this.server = server;
+        return this;
+    }
+
+    public CommandContextPack setCommandPeek(String commandPeek) {
         this.commandPeek = commandPeek;
         return this;
     }
 
-    public CommandContext setArgs(String[] args) {
+    public CommandContextPack setArgs(String[] args) {
         this.args = args;
         return this;
     }
 
-    public CommandContext setElement(Ticket.TicketBuilder element) {
+    public CommandContextPack setElement(Ticket.TicketBuilder element) {
         this.element = element;
         return this;
     }
@@ -66,10 +77,12 @@ public class CommandContext implements Serializable {
 
     @Override
     public String toString() {
-        return "CommandContext{" +
+        return "CommandContextPack{" +
                 "commandPeek='" + commandPeek + '\'' +
                 ", args=" + Arrays.toString(args) +
                 ", element=" + element +
+                ", socketAddress=" + socketAddress +
+                ", server=" + server +
                 '}';
     }
 }

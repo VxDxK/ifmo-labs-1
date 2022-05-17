@@ -1,18 +1,25 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
-import core.packet.InfoPack;
 import core.pojos.Ticket;
+import core.pojos.TicketWrap;
+import core.server.database.TicketDAO;
+import core.server.database.TicketDAOImpl;
+import core.server.database.UserDAO;
+import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
+import core.packet.InfoPack;
 import core.server.ServerCommandManager;
-import core.server.ValidationException;
-import util.TicketBuilderComparator;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * Class providing remove by id command
  */
@@ -22,7 +29,7 @@ public class RemoveById extends AbstractCommand<ServerCommandManager> {
         super(manager);
     }
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public synchronized void handle(String[] arguments, CommandContextPack context) throws IOException {
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
@@ -31,13 +38,23 @@ public class RemoveById extends AbstractCommand<ServerCommandManager> {
             builder.append("need argument");
         }else{
             try {
-                if(manager.getCollection().getById(Integer.parseInt(arguments[0])) == null){
-                    builder.append("no such element");
-                }else{
-                    manager.getCollection().remove(manager.getCollection().getById(Integer.parseInt(arguments[0])));
-                    builder.append("deleted");
-                }
 
+                TicketDAO ticketDao = manager.getTicketDAO();
+                UserDAO userDAOImpl = manager.getUserDAO();
+                List<Ticket> all = ticketDao.all().stream().filter(x -> x.getUser().equals(context.getUser())).map(TicketWrap::getTicket).collect(Collectors.toList());
+
+                if(all.size() == 0){
+                    builder.append("You dont have any elements");
+                }else{
+                    ticketDao.deleteByID(Integer.parseInt(arguments[0]));
+                    if(manager.getCollection().getById(Integer.parseInt(arguments[0])) != null){
+                        manager.getCollection().remove(Objects.requireNonNull(manager.getCollection().getById(Integer.parseInt(arguments[0]))));
+                        builder.append("Ok");
+                    }else{
+                        builder.append("no such id");
+                    }
+
+                }
             }catch (NumberFormatException e){
                 builder.append("Wrong argument");
             }
@@ -62,4 +79,10 @@ public class RemoveById extends AbstractCommand<ServerCommandManager> {
     public List<String> getAliases() {
         return Arrays.asList("remove_by_id");
     }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(false, true);
+    }
+
 }

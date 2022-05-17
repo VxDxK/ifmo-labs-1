@@ -1,6 +1,7 @@
 package core.server;
 
 import core.pojos.Ticket;
+import core.pojos.TicketWrap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,26 +10,13 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@XmlRootElement(name = "collection")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class EncapsulatedCollection extends AbstractCollection<Ticket> {
-    private final Deque<Ticket> tickets;
-    @XmlTransient
-    private final LocalDateTime initTime;
-    @XmlTransient
-    private final Set<Integer> idSet;
-    {
-        tickets = new ArrayDeque<>();
-        initTime = LocalDateTime.now();
-        idSet = new HashSet<>();
-//        for(int i = 0; i < Integer.MAX_VALUE; i++){
-//            idSet.add(i);
-//        }
-    }
 
+public final class EncapsulatedCollection extends AbstractCollection<TicketWrap> {
+    private final Deque<TicketWrap> tickets = new ArrayDeque<>();
+    private final LocalDateTime initTime = LocalDateTime.now();
 
     @Override
-    public Iterator<Ticket> iterator() {
+    public Iterator<TicketWrap> iterator() {
         return tickets.iterator();
     }
 
@@ -46,108 +34,42 @@ public class EncapsulatedCollection extends AbstractCollection<Ticket> {
     }
 
     @Override
-    public boolean add(Ticket ticket) {
-        idSet.add(ticket.getId());
+    public synchronized boolean add(TicketWrap ticket) {
         return tickets.add(ticket);
     }
 
-    public boolean validate(){
-        for(Ticket ticket : tickets){
-            Ticket.TicketBuilder ticketBuilder = new Ticket.TicketBuilder(ticket);
-            try{
-                ticketBuilder.build();
-            } catch (ValidationException e) {
-                return false;
+    public synchronized boolean removeByID(int id){
+        for(TicketWrap t : tickets){
+            if(t.getTicket().getId() == id){
+                return tickets.remove(t);
             }
-            if(idSet.contains(ticket.getId())){
-                return false;
-            }
-            idSet.add(ticket.getId());
-        }
-        return true;
-    }
-
-
-    public boolean add(Ticket.TicketBuilder ticketBuilder) throws ValidationException{
-        int id = (int)(Math.random() * Integer.MAX_VALUE);
-        while (idSet.contains(id)){
-            id = (int)(Math.random() * Integer.MAX_VALUE);
-        }
-        ticketBuilder.setId(id);
-        ticketBuilder.setCreationDate(LocalDateTime.now());
-        return add(ticketBuilder.build());
-    }
-
-    public boolean remove(Ticket o) {
-        if(super.remove(o)){
-            idSet.remove(o.getId());
-            return true;
         }
         return false;
     }
 
-    public Ticket getById(int id){
+    public synchronized boolean remove(TicketWrap o) {
+        return removeByID(o.getTicket().getId());
+    }
+
+    public synchronized TicketWrap getById(int id){
         if(id < 0){
             return null;
         }
-        for (Ticket ticket: tickets) {
-            if(ticket.getId() == id){
+        for (TicketWrap ticket: tickets) {
+            if(ticket.getTicket().getId() == id){
                 return ticket;
             }
         }
         return null;
     }
 
-    public boolean update(int id, Ticket.TicketBuilder builder){
-        try {
-            if(getById(id) == null){
-                return add(builder);
-            }
-            builder.setId(id);
-            builder.setCreationDate(LocalDateTime.now());
-            Ticket ticket = builder.build();
-            if(remove(getById(id))){
-                return add(builder);
-            }else {
-                return false;
-            }
-        }catch (ValidationException e){
-            return false;
-        }
+    @Override
+    public synchronized boolean addAll(Collection<? extends TicketWrap> c) {
+        return super.addAll(c);
     }
 
-    public Set<Integer> getIdSet() {
-        return idSet;
-    }
-
-    public Deque<Ticket> getSourceCollection(){
+    public Deque<TicketWrap> getSourceCollection(){
         return tickets;
-    }
-
-    public Ticket getMin(){
-        if(size() == 0){
-            return null;
-        }
-        Ticket ticket = tickets.getFirst();
-        for (Ticket ticketC : tickets) {
-            if(ticket.compareTo(ticketC) > 0){
-                ticket = ticketC;
-            }
-        }
-        return ticket;
-    }
-
-    public Ticket getMax(){
-        if(size() == 0){
-            return null;
-        }
-        Ticket ticket = tickets.getFirst();
-        for (Ticket ticketC : tickets) {
-            if(ticket.compareTo(ticketC) < 0){
-                ticket = ticketC;
-            }
-        }
-        return ticket;
     }
 
 }

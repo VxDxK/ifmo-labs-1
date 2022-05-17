@@ -1,8 +1,10 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import core.pojos.TicketWrap;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.pojos.Ticket;
 import core.server.ServerCommandManager;
@@ -11,6 +13,7 @@ import util.TicketBuilderComparator;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 /**
@@ -22,20 +25,27 @@ public class AddIfMinCommand extends AbstractCommand<ServerCommandManager> {
         super(manager);
     }
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
 
-        manager.getCollection().stream().max(Ticket::compareTo).ifPresent((t) -> {
+        manager.getCollection().stream().map(TicketWrap::getTicket).max(Ticket::compareTo).ifPresent((t) -> {
             Ticket.TicketBuilder ticketBuilder = new Ticket.TicketBuilder(t);
             TicketBuilderComparator comparator = new TicketBuilderComparator();
             if(comparator.compare(ticketBuilder, context.getElement()) < 0){
                 try {
-                    if(manager.getCollection().add(context.getElement())){
-                        builder.append("Element added");
+                    int newId = manager.getSeq().nextValue();
+                    Ticket.TicketBuilder ticketB2 = context.getElement();
+                    ticketB2.setId(newId);
+                    ticketB2.setCreationDate(LocalDateTime.now());
+                    if(manager.getUserDAO().checkAuth(context.getUser())){
+                        builder.append("No such user in db");
                     }else{
-                        builder.append("Not added");
+                        TicketWrap wrap = new TicketWrap(ticketB2.build(), context.getUser());
+                        manager.getTicketDAO().add(wrap);
+                        manager.getCollection().add(wrap);
+                        builder.append("Element added");
                     }
                 } catch (ValidationException e) {
                     builder.append(e.getMessage());
@@ -64,7 +74,7 @@ public class AddIfMinCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public boolean elementRequire() {
-        return true;
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(true, true);
     }
 }

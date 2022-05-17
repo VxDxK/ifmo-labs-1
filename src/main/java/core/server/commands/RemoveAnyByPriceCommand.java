@@ -1,12 +1,17 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
-import core.packet.InfoPack;
 import core.pojos.Ticket;
+import core.pojos.TicketWrap;
+import core.server.database.TicketDAO;
+import core.server.database.TicketDAOImpl;
+import core.server.database.UserDAO;
+import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
+import core.packet.InfoPack;
 import core.server.ServerCommandManager;
-import core.server.ValidationException;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -23,7 +28,7 @@ public class RemoveAnyByPriceCommand extends AbstractCommand<ServerCommandManage
         super(manager);
     }
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
@@ -35,11 +40,20 @@ public class RemoveAnyByPriceCommand extends AbstractCommand<ServerCommandManage
                 if(manager.getCollection().isEmpty()){
                     builder.append("Collection is empty");
                 }else{
-                    manager.getCollection().stream().filter((x) -> x.getPrice() == Integer.parseInt(arguments[0])).findFirst().ifPresent((x) ->{
-                        manager.getCollection().remove(x);
-                        builder.append("deleted");
-                    });
-                    builder.append(" done");
+                    TicketDAO dao = manager.getTicketDAO();
+                    UserDAO userDAOImpl = manager.getUserDAO();
+                    List<Ticket> all = dao.all().stream().filter(x -> x.getUser().equals(context.getUser())).map(TicketWrap::getTicket).collect(Collectors.toList());
+                    if(all.size() == 0){
+                        builder.append("You dont have any elements");
+                    }else{
+                        all.stream().filter(x -> x.getPrice() == Integer.parseInt(arguments[0])).findFirst().ifPresent((x) -> {
+                            manager.getCollection().removeByID(x.getId());
+                            dao.deleteByID(x.getId());
+                            builder.append("deleted");
+                        });
+                        builder.append(" done");
+                    }
+
                 }
             }catch (NumberFormatException e){
                 builder.append("Wrong argument");
@@ -65,4 +79,10 @@ public class RemoveAnyByPriceCommand extends AbstractCommand<ServerCommandManage
     public List<String> getAliases() {
         return Arrays.asList("remove_any_by_price");
     }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(false, true);
+    }
+
 }

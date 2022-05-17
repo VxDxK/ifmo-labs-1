@@ -2,7 +2,7 @@ package core.client.commands;
 
 import core.AbstractCommand;
 import core.client.ClientCommandManager;
-import core.packet.CommandContext;
+import core.packet.CommandContextPack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,7 @@ public class HelpCommand extends AbstractCommand<ClientCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) {
+    public void handle(String[] arguments, CommandContextPack context) {
         System.out.println(manager.getDocs());
     }
 

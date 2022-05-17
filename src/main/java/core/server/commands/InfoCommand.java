@@ -1,9 +1,9 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.DeserializationHelper;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import util.DeserializationHelper;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.InfoPack;
 import core.server.ServerCommandManager;
 
@@ -23,7 +23,7 @@ public class InfoCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) {
+    public synchronized void handle(String[] arguments, CommandContextPack context) {
         System.out.println("SIZE: " + manager.getCollection().size());
         InfoPack pack = new InfoPack();
 

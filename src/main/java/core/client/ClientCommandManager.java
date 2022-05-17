@@ -2,10 +2,12 @@ package core.client;
 
 import core.AbstractCommandManager;
 import core.Command;
-import core.DeserializationHelper;
-import core.SerializationHelper;
-import core.packet.CommandContext;
-import core.packet.InfoPack;
+import core.packet.*;
+import core.pojos.TicketWrap;
+import core.pojos.UserClient;
+import util.CommandExternalInfo;
+import util.DeserializationHelper;
+import util.SerializationHelper;
 import core.pojos.Ticket;
 import core.readers.TicketReader;
 
@@ -15,9 +17,7 @@ import java.io.OutputStreamWriter;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -27,10 +27,14 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
 
     private BufferedReader reader;
     private String docs;
-    private Map<String, Boolean> serverCommands;
+    private Map<String, CommandExternalInfo> serverCommands = new HashMap<>();
     private DatagramChannel channel;
     private SocketAddress address;
     private ByteBuffer inputBuffer;
+
+    private UserClient.UserServer client = null;
+    private List<TicketWrap> wrapList = new ArrayList<>();
+
     public ClientCommandManager(BufferedReader reader, SocketAddress address, ByteBuffer serverBuff) {
         this.reader = reader;
         try {
@@ -41,16 +45,28 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
         }
         this.address = address;
         this.inputBuffer = ByteBuffer.allocate(1024 * 16);
+        serverCommands.put("get_all_commands", new CommandExternalInfo(false, false));
     }
 
     @Override
     public void handle(String str) throws IOException {
         String[] splitted = str.trim().split(" ");
         if(serverCommands.get(splitted[0]) != null){
-            CommandContext context = new CommandContext()
+            CommandContextPack context = new CommandContextPack()
                     .setCommandPeek(splitted[0]).
                     setArgs(Arrays.copyOfRange(splitted, 1, splitted.length));
-            boolean isElReq = serverCommands.get(splitted[0]);
+
+            boolean isLoginReq = serverCommands.get(splitted[0]).needAuth;
+            if(isLoginReq){
+                if(client == null){
+                    System.out.println("You should login to use this command");
+                    return;
+                }
+            }
+
+            context.setUser(client);
+
+            boolean isElReq = serverCommands.get(splitted[0]).elementRequire;
             if(isElReq){
                 TicketReader ticketReader = new TicketReader();
                 Ticket.TicketBuilder element = ticketReader.read(reader, new OutputStreamWriter(System.out));
@@ -73,21 +89,44 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
                 Object ans = DeserializationHelper.get().deSerialization(inputBuffer);
                 if(ans != null){
                     if (ans instanceof InfoPack){
-                        InfoPack pack = (InfoPack) ans;
-                        System.out.println(pack.getString());
+                        if(ans instanceof StartupPack){
+                            StartupPack pack = (StartupPack) ans;
+                            updateHelp(pack.getString());
+                            serverCommands.putAll(pack.getMap());
+                        }else if(ans instanceof LoginPack){
+                            LoginPack pack = (LoginPack) ans;
+                            System.out.println(pack.getString());
+                            if(pack.getRetCode() == 0){
+                                client = pack.getUser();
+                            }
+                        } else if(ans instanceof UpdatePack){
+                            UpdatePack updatePack = (UpdatePack) ans;
+                            wrapList = updatePack.getListOfTickets();
+                         }else{
+                            InfoPack pack = (InfoPack) ans;
+                            System.out.println(pack.getString());
+                        }
+
                     }
                 }
                 inputBuffer.clear();
             }else{
+                if(docs == null){
+                    System.out.println("Server should work on startup");
+                    System.exit(-1);
+                }
                 System.out.println("no answer; Server can be unavailable");
             }
-
             return;
         }
 
 
         Command now = commandAliases.get(splitted[0].toLowerCase(Locale.ROOT));
         if(now != null){
+            if(now.externalInfo().needAuth && client == null){
+                System.out.println("Auth to use this command");
+                return;
+            }
             now.handle(Arrays.copyOfRange(splitted, 1, splitted.length), null);
         }else{
             System.out.println("No such command");
@@ -99,15 +138,30 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
         String str = reader.readLine();
         String[] splitted = str.trim().split(" ");
         if(serverCommands.get(splitted[0]) != null){
-            CommandContext context = new CommandContext()
+            CommandContextPack context = new CommandContextPack()
                     .setCommandPeek(splitted[0]).
                     setArgs(Arrays.copyOfRange(splitted, 1, splitted.length));
-            boolean isElReq = serverCommands.get(splitted[0]);
+
+            boolean isLoginReq = serverCommands.get(splitted[0]).needAuth;
+            if(isLoginReq){
+                if(client == null){
+                    System.out.println("You should login to use this command");
+                    return;
+                }
+            }
+
+            context.setUser(client);
+
+            boolean isElReq = serverCommands.get(splitted[0]).elementRequire;
             if(isElReq){
                 TicketReader ticketReader = new TicketReader();
                 Ticket.TicketBuilder element = ticketReader.read(reader);
                 context.setElement(element);
+
+
             }
+
+            inputBuffer.clear();
 
             try(SerializationHelper serializationHelper = new SerializationHelper()){
                 ByteBuffer byteBuffer = serializationHelper.serialize(context);
@@ -117,6 +171,8 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
                 channel.send(byteBuffer, address);
             }
 
+
+
             WaitAnswer answer = new WaitAnswer();
             boolean fl = answer.waitReceive(channel, inputBuffer, 5);
             if(fl){
@@ -124,24 +180,34 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
                 Object ans = DeserializationHelper.get().deSerialization(inputBuffer);
                 if(ans != null){
                     if (ans instanceof InfoPack){
-                        InfoPack pack = (InfoPack) ans;
-                        System.out.println(pack.getString());
+                        if(ans instanceof StartupPack){
+                            StartupPack pack = (StartupPack) ans;
+                            updateHelp(pack.getString());
+                            serverCommands.putAll(pack.getMap());
+                        }else if(ans instanceof LoginPack){
+                            LoginPack pack = (LoginPack) ans;
+                            System.out.println(pack.getString());
+                            if(pack.getRetCode() == 0){
+                                client = pack.getUser();
+                            }
+                        } else{
+                            InfoPack pack = (InfoPack) ans;
+                            System.out.println(pack.getString());
+                        }
+
                     }
                 }
                 inputBuffer.clear();
             }else{
                 System.out.println("no answer; Server can be unavailable");
             }
-
-            return;
-        }
-
-
-        Command now = commandAliases.get(splitted[0].toLowerCase(Locale.ROOT));
-        if(now != null){
-            now.handle(Arrays.copyOfRange(splitted, 1, splitted.length), null);
         }else{
-            System.out.println("No such command");
+            Command now = commandAliases.get(splitted[0].toLowerCase(Locale.ROOT));
+            if(now != null){
+                now.handle(Arrays.copyOfRange(splitted, 1, splitted.length), null);
+            }else{
+                System.out.println("No such command");
+            }
         }
     }
 
@@ -168,19 +234,27 @@ public class ClientCommandManager extends AbstractCommandManager implements Auto
         return docs;
     }
 
-    public void setDocs(String docs) {
-        this.docs = docs;
-    }
-
-    public void setServerCommands(Map<String, Boolean> serverCommands) {
-        this.serverCommands = serverCommands;
-    }
-
     public BufferedReader getReader() {
         return reader;
     }
 
     public DatagramChannel getChannel() {
         return channel;
+    }
+
+    public UserClient.UserServer getUser() {
+        return client;
+    }
+
+    public SocketAddress getAddress() {
+        return address;
+    }
+
+    public void setClient(UserClient.UserServer client) {
+        this.client = client;
+    }
+
+    public List<TicketWrap> getWrapList() {
+        return wrapList;
     }
 }

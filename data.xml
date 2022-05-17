@@ -89,4 +89,23 @@
             <nationality>THAILAND</nationality>
         </person>
     </tickets>
+    <tickets>
+        <id>1679453438</id>
+        <name>Greg</name>
+        <coordinates>
+            <x>4.0</x>
+            <y>21.0</y>
+        </coordinates>
+        <creationDate>2022-05-03T04:41:34.105</creationDate>
+        <price>245</price>
+        <discount>14</discount>
+        <comment>np g</comment>
+        <type>VIP</type>
+        <person>
+            <weight>45.0</weight>
+            <eyeColor>RED</eyeColor>
+            <hairColor>BLACK</hairColor>
+            <nationality>FRANCE</nationality>
+        </person>
+    </tickets>
 </collection>

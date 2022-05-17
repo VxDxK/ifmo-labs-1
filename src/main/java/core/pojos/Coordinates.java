@@ -11,9 +11,7 @@ import java.io.Serializable;
  * Pojo class of coordinates
  */
 
-@XmlRootElement(name = "coordinates")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Coordinates implements Serializable {
+public final class Coordinates implements Serializable {
     /**
      * More than -117 not null
      */

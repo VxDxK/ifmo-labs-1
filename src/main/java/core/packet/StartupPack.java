@@ -1,24 +1,18 @@
 package core.packet;
 
+import util.CommandExternalInfo;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StartupPack implements Serializable {
-    private final Map<String, Boolean> tre = new HashMap<>();
-    private String help;
+public class StartupPack extends InfoPack implements Serializable {
+    protected final Map<String, CommandExternalInfo> tre = new HashMap<>();
 
-    public Map<String, Boolean> getMap() {
+    public Map<String, CommandExternalInfo> getMap() {
         return tre;
     }
 
-    public String getHelp() {
-        return help;
-    }
-
-    public void setHelp(String help) {
-        this.help = help;
-    }
 
     public StartupPack() {
 
@@ -28,7 +22,7 @@ public class StartupPack implements Serializable {
     public String toString() {
         return "StartupPack{" +
                 "tre=" + tre +
-                ", help='" + help + '\'' +
+                ", string='" + string + '\'' +
                 '}';
     }
 }

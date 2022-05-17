@@ -11,9 +11,7 @@ import java.util.Objects;
 /**
  * Person class
  */
-@XmlRootElement(name = "person")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Person implements Serializable {
+public final class Person implements Serializable {
     /**
      * Positive
      */

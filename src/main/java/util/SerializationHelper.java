@@ -1,4 +1,4 @@
-package core;
+package util;
 
 
 import java.io.*;
@@ -8,8 +8,6 @@ public class SerializationHelper implements AutoCloseable{
     //Serialization
     ByteArrayOutputStream outputStream;
     ObjectOutputStream oos;
-
-
 
     public SerializationHelper() {
         try {

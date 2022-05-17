@@ -1,8 +1,8 @@
-package core.server.commands;
+package core.server.commands.api;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
 import core.packet.StartupPack;
 import core.server.ServerCommandManager;
 
@@ -18,12 +18,14 @@ public class GetCommandsCommand extends AbstractCommand<ServerCommandManager> {
     }
 
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public void handle(String[] arguments, CommandContextPack context) throws IOException {
         StartupPack startupPack = new StartupPack();
-        manager.getCommandAliases().forEach((key, value) -> startupPack.getMap().put(key, value.elementRequire()));
+        manager.getCommandAliases().forEach((key, value) -> startupPack.getMap().put(key, value.externalInfo()));
         StringBuilder builder = new StringBuilder();
-        manager.getCommands().forEach(y -> builder.append(y.getName().concat(" : ")).append(y.getHelp().concat("\n")));
-        startupPack.setHelp(builder.toString());
+        manager.getCommands().stream()
+                .filter(x -> !x.getHelp().equals("#api"))
+                .forEach(y -> builder.append(y.getName().concat(" : ")).append(y.getHelp().concat("\n")));
+        startupPack.setString(builder.toString());
         try(SerializationHelper serializationHelper = new SerializationHelper()){
             ByteBuffer byteBuffer = serializationHelper.serialize(startupPack);
             manager.getChannel().send(byteBuffer, context.getSocketAddress());
@@ -32,7 +34,7 @@ public class GetCommandsCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public String getHelp() {
-        return "API command";
+        return "#api";
     }
 
     @Override

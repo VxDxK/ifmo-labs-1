@@ -2,11 +2,16 @@ package core.server;
 
 import core.AbstractCommandManager;
 import core.Command;
-import core.packet.CommandContext;
+import core.packet.CommandContextPack;
+import core.pojos.TicketWrap;
+import core.pojos.UserClient;
+import core.server.database.*;
 
 import java.io.*;
 import java.nio.channels.DatagramChannel;
-import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -14,14 +19,21 @@ public final class ServerCommandManager extends AbstractCommandManager implement
 
     private final Logger logger = Logger.getLogger(ServerCommandManager.class.getName());
 
-    DatagramChannel channel;
-    EncapsulatedCollection collection;
-    Path file;
+    private final DatagramChannel channel;
+    private final EncapsulatedCollection collection;
+    private final Map<Class<?>, DAO<?>> daos = new ConcurrentHashMap<>();
+    private TicketDAO ticketDAO;
+    private UserDAO userDAO;
+    private Sequence seq;
 
-    public ServerCommandManager(EncapsulatedCollection collection, Path file, DatagramChannel socket){
+
+
+    public ServerCommandManager(EncapsulatedCollection collection, DatagramChannel socket, TicketDAO ticketDAO, UserDAO userDAO, Sequence generatorSeq){
         this.collection = collection;
-        this.file = file;
         this.channel = socket;
+        this.ticketDAO = ticketDAO;
+        this.userDAO = userDAO;
+        this.seq = generatorSeq;
     }
 
 
@@ -34,10 +46,10 @@ public final class ServerCommandManager extends AbstractCommandManager implement
         throw new IOException("Cannot handle just string");
     }
 
-    public void handle(CommandContext context) throws IOException{
+    public void handle(CommandContextPack context) throws IOException{
         Command now = commandAliases.get(context.getCommandPeek());
         if(now != null){
-            if(now.elementRequire()){
+            if(now.externalInfo().elementRequire){
                 System.out.println(context.getElement().toString());
             }
             now.handle(context.getArgs(), context);
@@ -52,10 +64,22 @@ public final class ServerCommandManager extends AbstractCommandManager implement
         return collection;
     }
 
-    public Path getFile() {
-        return file;
+    @Deprecated
+    public <T> void addDao(Class<T> daoClass, DAO<T> dao){
+        daos.put(daoClass, dao);
     }
 
+    public TicketDAO getTicketDAO() {
+        return ticketDAO;
+    }
+
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    public Sequence getSeq() {
+        return seq;
+    }
 
     @Override
     public void close(){

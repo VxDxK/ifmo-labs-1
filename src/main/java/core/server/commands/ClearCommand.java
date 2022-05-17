@@ -1,13 +1,17 @@
 package core.server.commands;
 
 import core.AbstractCommand;
-import core.SerializationHelper;
-import core.packet.CommandContext;
-import core.packet.InfoPack;
 import core.pojos.Ticket;
+import core.server.EncapsulatedCollection;
+import core.server.database.TicketDAO;
+import core.server.database.TicketDAOImpl;
+import core.server.database.UserDAO;
+import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
+import util.SerializationHelper;
+import core.packet.CommandContextPack;
+import core.packet.InfoPack;
 import core.server.ServerCommandManager;
-import core.server.ValidationException;
-import util.TicketBuilderComparator;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -21,15 +25,21 @@ public class ClearCommand extends AbstractCommand<ServerCommandManager> {
     public ClearCommand(ServerCommandManager manager) {
         super(manager);
     }
+
     @Override
-    public void handle(String[] arguments, CommandContext context) throws IOException {
+    public synchronized void handle(String[] arguments, CommandContextPack context) throws IOException {
         InfoPack pack = new InfoPack();
 
         StringBuilder builder = new StringBuilder();
+        EncapsulatedCollection collection = manager.getCollection();
 
-        manager.getCollection().clear();
+        TicketDAO dao = manager.getTicketDAO();
+        UserDAO userDAOImpl = manager.getUserDAO();
 
-        builder.append("Cleared");
+        collection.stream().filter(x -> x.getUser().equals(context.getUser())).forEach(x -> dao.deleteByID(x.getTicket().getId()));
+        collection.stream().filter(x -> x.getUser().equals(context.getUser())).forEach(collection::remove);
+
+        builder.append("Cleared from your elements");
 
         try(SerializationHelper serializationHelper = new SerializationHelper()) {
             pack.setString(builder.toString());
@@ -49,5 +59,10 @@ public class ClearCommand extends AbstractCommand<ServerCommandManager> {
     @Override
     public List<String> getAliases() {
         return Arrays.asList("clear");
+    }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        return new CommandExternalInfo(false, true);
     }
 }

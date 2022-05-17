@@ -1,12 +1,7 @@
 package core.pojos;
 
 import core.server.ValidationException;
-import util.LocalDateTimeAdapter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,9 +10,7 @@ import java.util.Objects;
  * Ticket class
  * Main class of all 5th lab
  */
-@XmlRootElement(name = "ticket")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Ticket implements Comparable<Ticket>, Serializable {
+public final class Ticket implements Comparable<Ticket>, Serializable {
     /**
      * Positive and auto-gen
      */
@@ -33,7 +26,6 @@ public class Ticket implements Comparable<Ticket>, Serializable {
     /**
      * Auto input
      */
-    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     private final LocalDateTime creationDate;
     /**
      * Positive
@@ -286,7 +278,18 @@ public class Ticket implements Comparable<Ticket>, Serializable {
             return true;
         }
 
+        public void validatePerson(Person person) throws ValidationException{
+            if(person == null){
+                throw new ValidationException("Person is not null");
+            }
+        }
+
         public boolean setPerson(Person person) {
+            try {
+                validatePerson(person);
+            }catch (ValidationException e){
+                return false;
+            }
             this.person = person;
             return true;
         }
@@ -299,6 +302,7 @@ public class Ticket implements Comparable<Ticket>, Serializable {
             validatePrice(price);
             validateDiscount(discount);
             validateComment(comment);
+            validatePerson(person);
 
             return new Ticket(id, name, coordinates, creationDate, price, discount, comment, type, person);
         }
