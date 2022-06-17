@@ -15,12 +15,14 @@ import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * Class providing add operation
  */
 public class AddCommand extends AbstractCommand<ServerCommandManager> {
-
+    private static final Logger logger = Logger.getLogger(AddCommand.class.getName());
     public AddCommand(ServerCommandManager manager) {
         super(manager);
     }
@@ -40,7 +42,8 @@ public class AddCommand extends AbstractCommand<ServerCommandManager> {
                 ticketBuilder.setId(newId);
                 ticketBuilder.setCreationDate(LocalDateTime.now());
 
-                if(manager.getUserDAO().checkAuth(context.getUser())){
+                if(!manager.getUserDAO().checkAuth(context.getUser())){
+                    logger.info(context.getUser().toString());
                     builder.append("No such user in db");
                 }else{
                     TicketWrap wrap = new TicketWrap(ticketBuilder.build(), context.getUser());
@@ -74,6 +77,17 @@ public class AddCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(true, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(true, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Добавляет элемент в коллекцию")
+                .addHelp(new Locale("no"), "Legger til et element i samlingen")
+                .addHelp(new Locale("hu"), "Hozzáad egy elemet a gyűjteményhez");
+        return commandExternalInfo;
+    }
+
+    @Override
+    public boolean isModifiable() {
+        return true;
     }
 }

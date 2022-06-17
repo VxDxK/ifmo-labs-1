@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +37,6 @@ public class RemoveHeadCommand extends AbstractCommand<ServerCommandManager> {
         StringBuilder builder = new StringBuilder();
 
         TicketDAO dao = manager.getTicketDAO();
-        UserDAO userDAOImpl = manager.getUserDAO();
 
         List<TicketWrap> all = dao.all().stream().filter(x -> x.getUser().equals(context.getUser())).collect(Collectors.toList());
 
@@ -71,7 +71,17 @@ public class RemoveHeadCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(false, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(false, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Удаляет первый элемент")
+                .addHelp(new Locale("no"), "Sletter det første elementet")
+                .addHelp(new Locale("hu"), "Az első elem törlése");
+        return commandExternalInfo;
     }
 
+    @Override
+    public boolean isModifiable() {
+        return true;
+    }
 }

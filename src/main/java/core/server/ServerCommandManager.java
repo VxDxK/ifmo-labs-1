@@ -3,14 +3,18 @@ package core.server;
 import core.AbstractCommandManager;
 import core.Command;
 import core.packet.CommandContextPack;
+import core.packet.UpdatePack;
 import core.pojos.TicketWrap;
 import core.pojos.UserClient;
 import core.server.database.*;
+import util.SerializationHelper;
 
 import java.io.*;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.channels.UnresolvedAddressException;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -25,7 +29,7 @@ public final class ServerCommandManager extends AbstractCommandManager implement
     private TicketDAO ticketDAO;
     private UserDAO userDAO;
     private Sequence seq;
-
+    private final Set<SocketAddress> addressList = new HashSet<>();
 
 
     public ServerCommandManager(EncapsulatedCollection collection, DatagramChannel socket, TicketDAO ticketDAO, UserDAO userDAO, Sequence generatorSeq){
@@ -53,6 +57,22 @@ public final class ServerCommandManager extends AbstractCommandManager implement
                 System.out.println(context.getElement().toString());
             }
             now.handle(context.getArgs(), context);
+            if(now.isModifiable()){
+                UpdatePack updatePack = new UpdatePack();
+                updatePack.listOfTickets.addAll(collection);
+                try(SerializationHelper serializationHelper = new SerializationHelper()) {
+                    ByteBuffer byteBuffer = serializationHelper.serialize(updatePack);
+                    for (SocketAddress addr: addressList) {
+                        try {
+                            channel.send(byteBuffer, addr);
+                            byteBuffer.flip();
+                        }catch (UnresolvedAddressException e){
+                            logger.warning(e.getMessage() + " " + addr);
+                        }
+
+                    }
+                }
+            }
         }
     }
 
@@ -90,5 +110,9 @@ public final class ServerCommandManager extends AbstractCommandManager implement
                 logger.warning(e.getMessage());
             }
         }
+    }
+
+    public Set<SocketAddress> getAddressList() {
+        return addressList;
     }
 }

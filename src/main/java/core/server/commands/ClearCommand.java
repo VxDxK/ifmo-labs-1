@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
 /**
  * Class providing command to clear in memory collection
  */
@@ -63,6 +65,17 @@ public class ClearCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(false, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(false, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Очищает коллекцию")
+                .addHelp(new Locale("no"), "Tømmer samlingen")
+                .addHelp(new Locale("hu"), "Törli a gyűjteményt");
+        return commandExternalInfo;
+    }
+
+    @Override
+    public boolean isModifiable() {
+        return true;
     }
 }

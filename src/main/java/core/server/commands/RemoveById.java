@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,6 @@ public class RemoveById extends AbstractCommand<ServerCommandManager> {
             try {
 
                 TicketDAO ticketDao = manager.getTicketDAO();
-                UserDAO userDAOImpl = manager.getUserDAO();
                 List<Ticket> all = ticketDao.all().stream().filter(x -> x.getUser().equals(context.getUser())).map(TicketWrap::getTicket).collect(Collectors.toList());
 
                 if(all.size() == 0){
@@ -82,7 +82,17 @@ public class RemoveById extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(false, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(false, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Удаляет любой элемент по id")
+                .addHelp(new Locale("no"), "Sletter ethvert element av id")
+                .addHelp(new Locale("hu"), "Az azonosító bármely elemének törlése");
+        return commandExternalInfo;
     }
 
+    @Override
+    public boolean isModifiable() {
+        return true;
+    }
 }

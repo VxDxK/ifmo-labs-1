@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -82,7 +83,17 @@ public class RemoveAnyByPriceCommand extends AbstractCommand<ServerCommandManage
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(false, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(false, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Удаляет любой элемент по заданной цене")
+                .addHelp(new Locale("no"), "Fjerner ethvert element til en gitt pris")
+                .addHelp(new Locale("hu"), "Eltávolít minden elemet egy adott áron");
+        return commandExternalInfo;
     }
 
+    @Override
+    public boolean isModifiable() {
+        return true;
+    }
 }

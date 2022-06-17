@@ -2,6 +2,7 @@ package core.server.commands;
 
 import core.AbstractCommand;
 import core.pojos.TicketWrap;
+import util.CommandExternalInfo;
 import util.SerializationHelper;
 import core.packet.CommandContextPack;
 import core.packet.InfoPack;
@@ -10,10 +11,7 @@ import core.server.ServerCommandManager;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Class providing command with ticket max by discount
@@ -61,5 +59,15 @@ public class MaxByDiscountCommand extends AbstractCommand<ServerCommandManager> 
     @Override
     public List<String> getAliases() {
         return Arrays.asList("max_by_discount");
+    }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        CommandExternalInfo commandExternalInfo = super.externalInfo();
+        commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Выводит максимальный по скидке элемент")
+                .addHelp(new Locale("no"), "Viser elementet maksimal rabatt")
+                .addHelp(new Locale("hu"), "Megjeleníti a maximális kedvezmény elemet");
+        return commandExternalInfo;
     }
 }

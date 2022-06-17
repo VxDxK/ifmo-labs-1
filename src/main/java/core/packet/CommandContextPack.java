@@ -11,8 +11,8 @@ import java.util.Arrays;
  * Class providing info for your command execution
  */
 public class CommandContextPack implements Serializable {
-    String commandPeek;
-    String[] args;
+    String commandPeek = "";
+    String[] args = new String[0];
     /**
      * May be null
      */

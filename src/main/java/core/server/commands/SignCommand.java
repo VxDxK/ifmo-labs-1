@@ -7,12 +7,14 @@ import core.server.ServerCommandManager;
 import core.packet.CommandContextPack;
 import core.server.database.UserDAO;
 import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
 import util.SerializationHelper;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SignCommand extends AbstractCommand<ServerCommandManager> {
 
@@ -74,5 +76,12 @@ public class SignCommand extends AbstractCommand<ServerCommandManager> {
     @Override
     public List<String> getAliases() {
         return Arrays.asList("sign");
+    }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        CommandExternalInfo commandExternalInfo = super.externalInfo().setNeededInGui(false);
+        commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp());
+        return commandExternalInfo;
     }
 }

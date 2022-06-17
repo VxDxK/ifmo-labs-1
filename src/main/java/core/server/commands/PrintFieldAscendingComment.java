@@ -2,6 +2,7 @@ package core.server.commands;
 
 import core.AbstractCommand;
 import core.pojos.TicketWrap;
+import util.CommandExternalInfo;
 import util.SerializationHelper;
 import core.packet.CommandContextPack;
 import core.packet.InfoPack;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -44,11 +46,22 @@ public class PrintFieldAscendingComment extends AbstractCommand<ServerCommandMan
 
     @Override
     public String getHelp() {
-        return "Print comment field in vozrastanie";
+        return "Print comment field increasing";
     }
 
     @Override
     public List<String> getAliases() {
         return Arrays.asList("print_field_ascending_comment");
     }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        CommandExternalInfo commandExternalInfo = super.externalInfo();
+        commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Выводит комментарии по возрастанию")
+                .addHelp(new Locale("no"), "Vis kommentarer i stigende rekkefølge")
+                .addHelp(new Locale("hu"), "Megjegyzések megjelenítése növekvő sorrendben");
+        return commandExternalInfo;
+    }
+
 }

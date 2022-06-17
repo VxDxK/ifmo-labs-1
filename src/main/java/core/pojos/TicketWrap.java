@@ -38,6 +38,9 @@ public final class TicketWrap implements Serializable {
 
     @Override
     public String toString() {
-        return ticket.toString();
+        return "TicketWrap{" +
+                "ticket=" + ticket +
+                ", user=" + user.getLogin() +
+                '}';
     }
 }

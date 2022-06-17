@@ -40,7 +40,6 @@ public class ServerUpdateCommand extends AbstractCommand<ServerCommandManager> {
                 }else{
                     int id = Integer.parseInt(arguments[0]);
                     TicketDAO dao = manager.getTicketDAO();
-                    UserDAO userDAOImpl = manager.getUserDAO();
                     List<TicketWrap> all = dao.all();
 
                     all.stream().filter(x -> x.getUser()
@@ -98,6 +97,11 @@ public class ServerUpdateCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(true, true);
+        return new CommandExternalInfo(true, true, false);
+    }
+
+    @Override
+    public boolean isModifiable() {
+        return true;
     }
 }

@@ -16,6 +16,8 @@ import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
 /**
  * Class providing add operation with if min statement
  */
@@ -75,6 +77,17 @@ public class AddIfMinCommand extends AbstractCommand<ServerCommandManager> {
 
     @Override
     public CommandExternalInfo externalInfo() {
-        return new CommandExternalInfo(true, true);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(true, true);
+        commandExternalInfo.localizedHelp
+                .addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Добавляет элемент в коллекцию если он наименьший")
+                .addHelp(new Locale("no"), "Legger til et element i samlingen hvis det er størst")
+                .addHelp(new Locale("hu"), "Hozzáad egy elemet a gyűjteményhez, ha az a legnagyobb");
+        return commandExternalInfo;
+    }
+
+    @Override
+    public boolean isModifiable() {
+        return true;
     }
 }

@@ -2,9 +2,7 @@ package apps;
 
 import core.server.commands.SignCommand;
 import core.pojos.*;
-import core.server.commands.api.GetCommandsCommand;
-import core.server.commands.api.GetElements;
-import core.server.commands.api.ServerUpdateCommand;
+import core.server.commands.api.*;
 import core.server.database.*;
 import util.*;
 import core.packet.CommandContextPack;
@@ -46,13 +44,11 @@ public class Server implements Runnable{
             System.exit(-1);
         }
         Config config = new Config(Paths.get("config.properties"));
-        System.out.println(config);
         try (ServerDataSource serverDataSource = new ServerDataSource(config);
              UserDAOImpl userServerDAO = new UserDAOImpl(serverDataSource);
              TicketDAOImpl ticketDAOImpl = new TicketDAOImpl(serverDataSource, userServerDAO);
              IDGeneratorSeq sequence = new IDGeneratorSeq(serverDataSource);
              DatagramChannel channel = DatagramChannel.open();
-             SerializationHelper serializationHelper = new SerializationHelper();
              ServerCommandManager commandManager = new ServerCommandManager(collection, channel, ticketDAOImpl, userServerDAO, sequence)){
 
 
@@ -79,7 +75,10 @@ public class Server implements Runnable{
                     .addCommand(ServerUpdateCommand::new)
                     .addCommand(GetCommandsCommand::new)
                     .addCommand(SignCommand::new)
-                    .addCommand(GetElements::new);
+                    .addCommand(GetElements::new)
+                    .addCommand(GetUniqueCommandsCommand::new)
+                    .addCommand(PutMeInCommand::new)
+                    .addCommand(PutMeOutCommand::new);
 
             new Stopper(Thread.currentThread(), System.in).start();
 
@@ -92,7 +91,7 @@ public class Server implements Runnable{
                 SocketAddress clientAddress = channel.receive(fromClient);
 
                 if(clientAddress != null){
-                    logger.info("new message");
+                    logger.info("new message from: " + clientAddress);
                     fromClient.flip();
                     DeserializationHelper deserializationHelper = new DeserializationHelper();
                     Object received = deserializationHelper.deSerialization(fromClient);

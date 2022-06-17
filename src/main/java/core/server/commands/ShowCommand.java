@@ -7,6 +7,7 @@ import core.server.database.TicketDAO;
 import core.server.database.TicketDAOImpl;
 import core.server.database.UserDAO;
 import core.server.database.UserDAOImpl;
+import util.CommandExternalInfo;
 import util.SerializationHelper;
 import core.packet.CommandContextPack;
 import core.packet.InfoPack;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -30,15 +32,11 @@ public class ShowCommand extends AbstractCommand<ServerCommandManager> {
     @Override
     public void handle(String[] arguments, CommandContextPack context) {
         InfoPack pack = new InfoPack();
-
         StringBuilder builder = new StringBuilder();
-
         EncapsulatedCollection collection = manager.getCollection();
-
         builder.append("Show: {");
-
         synchronized (builder){
-            if(arguments.length != 0 && arguments[0].equalsIgnoreCase("my")){
+            if(arguments != null && arguments.length != 0 && arguments[0].equalsIgnoreCase("my")){
                 if(context.getUser() == null){
                     builder.append("Should login to use show my");
                 }else{
@@ -73,5 +71,15 @@ public class ShowCommand extends AbstractCommand<ServerCommandManager> {
     @Override
     public List<String> getAliases() {
         return Arrays.asList("show");
+    }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        CommandExternalInfo commandExternalInfo = super.externalInfo();
+        commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Строковое представление коллекции")
+                .addHelp(new Locale("no"), "String representasjon av samlingen")
+                .addHelp(new Locale("hu"), "A gyűjtemény karakterlánc-ábrázolása");
+        return commandExternalInfo;
     }
 }

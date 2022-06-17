@@ -33,12 +33,10 @@ public class Client implements Runnable{
 
         ByteBuffer fromServer = ByteBuffer.allocate(2048);
 
-        try(SerializationHelper helper = new SerializationHelper();
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 ClientCommandManager commandManager = new ClientCommandManager(br, address, fromServer)){
 
             commandManager.handle("get_all_commands");
-
 
             commandManager
                     .addCommand(HelpCommand::new)

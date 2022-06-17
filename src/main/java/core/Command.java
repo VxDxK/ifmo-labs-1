@@ -5,6 +5,8 @@ import util.CommandExternalInfo;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+
 /**
  * Class providing base command methods
  */
@@ -34,6 +36,17 @@ public interface Command {
     List<String> getAliases();
 
     default CommandExternalInfo externalInfo(){
-        return new CommandExternalInfo(false, false);
+        CommandExternalInfo commandExternalInfo = new CommandExternalInfo(false, false, true);
+        if(getHelp().equals("#api")){
+            commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, "");
+        }else{
+            commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp());
+        }
+        return commandExternalInfo;
     }
+
+    default boolean isModifiable(){
+        return false;
+    }
+
 }

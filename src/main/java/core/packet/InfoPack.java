@@ -3,7 +3,7 @@ package core.packet;
 import java.io.Serializable;
 
 public class InfoPack implements Serializable {
-    protected String string;
+    protected String string = "";
 
     public InfoPack(String string) {
         this.string = string;

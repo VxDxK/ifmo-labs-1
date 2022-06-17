@@ -1,6 +1,7 @@
 package core.server.commands;
 
 import core.AbstractCommand;
+import util.CommandExternalInfo;
 import util.DeserializationHelper;
 import util.SerializationHelper;
 import core.packet.CommandContextPack;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -29,14 +31,12 @@ public class InfoCommand extends AbstractCommand<ServerCommandManager> {
 
         String builder = "Collection type: " + manager.getCollection().getType() + "\n" +
                 "Init time: " + manager.getCollection().getInitTime().toString() + "\n" +
-                "Size: " + manager.getCollection().size() + "\n";
+                "Size: " + manager.getCollection().size() + "\n" +
+                "Number of client: " + manager.getAddressList().size() + '\n';
 
         pack.setString(builder);
-        System.out.println(pack.toString());
         try(SerializationHelper serializationHelper = new SerializationHelper()) {
             ByteBuffer byteBuffer = serializationHelper.serialize(pack);
-            System.out.println(Arrays.toString(byteBuffer.array()));
-            System.out.println(DeserializationHelper.get().deSerialization(byteBuffer));
             manager.getChannel().send(byteBuffer, context.getSocketAddress());
         }catch (IOException e) {
             e.printStackTrace();
@@ -51,5 +51,15 @@ public class InfoCommand extends AbstractCommand<ServerCommandManager> {
     @Override
     public List<String> getAliases() {
         return Arrays.asList("info", "i");
+    }
+
+    @Override
+    public CommandExternalInfo externalInfo() {
+        CommandExternalInfo commandExternalInfo = super.externalInfo();
+        commandExternalInfo.localizedHelp.addHelp(Locale.ENGLISH, getHelp())
+                .addHelp(new Locale("ru"), "Выводит информацию о коллекции")
+                .addHelp(new Locale("no"), "Viser informasjon om samlingen")
+                .addHelp(new Locale("hu"), "Információkat jelenít meg a gyűjteményről");
+        return commandExternalInfo;
     }
 }
