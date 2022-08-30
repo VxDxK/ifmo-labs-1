@@ -16,3 +16,4 @@
 [proga-lab-6](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-6)
 [proga-lab-7](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-7)
 [proga-lab-8](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-8)
+[web-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-1)
