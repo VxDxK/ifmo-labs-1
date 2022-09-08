@@ -16,8 +16,8 @@ function checkboxChecker(eventObj) {
 
 function fieldXValidator(){
     //parseFloat шлак, потому что буквы после числа отрезает
+    document.getElementById("x-field").value = document.getElementById("x-field").value.replace(/[^\d.-]/g, '');
     let x = document.getElementById("x-field").value;
-
     let valid = true;
 
     for(let i = 0; i < x.length; i++){
@@ -34,18 +34,18 @@ function fieldXValidator(){
     }
     // console.log(`${x} nan: ${valid}`)
     if(!valid){
-        document.getElementById("submit").disabled = true;
+        document.getElementById("submitButt").disabled = true;
         document.getElementById("x-warning").innerText = "Not a number";
         return;
     }
     let xFloat = parseFloat(x);
 
     if(xFloat < -3 || xFloat > 3){
-        document.getElementById("submit").disabled = true;
+        document.getElementById("submitButt").disabled = true;
         document.getElementById("x-warning").innerText = "X should be in [-3; 3] range";
 
     }else{
-        document.getElementById("submit").disabled = false;
+        document.getElementById("submitButt").disabled = false;
         document.getElementById("x-warning").innerText = "";
     }
 

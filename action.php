@@ -1,15 +1,11 @@
 <?php
 session_start();
-$entryTime = hrtime(true);
-
 if (!isset($_SESSION['attempts'])) {
     $_SESSION['attempts'] = array();
 }
 
-
+$entryTime = hrtime(true);
 $xyrAvailable = true;
-
-
 if (!isset($_POST['x'])) {
     echo "X is required\r\n";
     $xyrAvailable = false;
@@ -31,6 +27,25 @@ if(!$xyrAvailable){
 $x = floatval($_POST['x']);
 $y = floatval($_POST['y']);
 $r = floatval($_POST['r']);
+
+if($x > 3 || $x < -3){
+    echo "Thanks for breaking my api, x is not in [-3;3] range";
+    http_response_code(400);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+
+if(!is_int($y) || $y < -3 || $y > 6){
+    echo "Thanks for breaking my api, y is not in Z[-3;6] range";
+    http_response_code(400);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+
+if(!is_int($r) || $r < 0 || $r > 5){
+    echo "Thanks for breaking my api, r is not in [0;5] range";
+    http_response_code(400);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+
 
 $quarter = -1;
 echo $x . PHP_EOL .$y . PHP_EOL . $r;
@@ -67,7 +82,7 @@ $result = array(
     'x' => $x,
     'y' => $y,
     'r' => $r,
-    'hit' => $hit ? "Hit" : "Miss",
+    'hit' => $hit ? "<div class='hit'>Hit</div>" : "<div class='miss'>Miss</div>",
     'time' => date("H:i:s d-m-Y"),
     'processing_time' => (hrtime(true) - $entryTime)/1000000
 );
@@ -75,4 +90,5 @@ $_SESSION['attempts'][] = $result;
 
 
 http_response_code(200);
-header('Location: /web-lab-1/index.php');
+//header('Location: /web-lab-1/index.php');
+header('Location: ' . $_SERVER['HTTP_REFERER']);

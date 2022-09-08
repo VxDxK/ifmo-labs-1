@@ -2,4 +2,4 @@
 session_start();
 $_SESSION['attempts'] = array();
 
-header('Location: /web-lab-1/');
+header('Location: ' . $_SERVER['HTTP_REFERER']);
