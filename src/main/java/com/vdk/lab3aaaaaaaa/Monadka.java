@@ -1,4 +1,4 @@
-package com.vdk.lab2demo;
+package com.vdk.lab3aaaaaaaa;
 
 import java.util.ArrayList;
 import java.util.List;

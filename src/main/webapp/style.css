@@ -4,14 +4,23 @@
     color: white;
 }
 
-header{
+.header{
     text-align: center;
+}
+
+.button{
+    text-align: center;
+    margin: auto;
 }
 
 .nameHeader{
     margin-top: 0;
     padding-top: 0;
     font-size: 34pt;
+}
+
+.clock{
+    font-size: xxx-large;
 }
 
 .variantHeader{
