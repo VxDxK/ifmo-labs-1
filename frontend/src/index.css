@@ -1,0 +1,52 @@
+* {
+  /*background: #292929;*/
+  background-image: url("Trio.jpg");
+  background-image: url("fight.jpg");
+
+
+  color: white;
+}
+
+/*body {*/
+/*  background: url("Trio.jpg") no-repeat;*/
+/*  -moz-background-size: 100%; !* Firefox 3.6+ *!*/
+/*  -webkit-background-size: 100%; !* Safari 3.1+ и Chrome 4.0+ *!*/
+/*  -o-background-size: 100%; !* Opera 9.6+ *!*/
+/*  background-size: 100%; !* Современные браузеры *!*/
+/*}*/
+
+
+input{
+  background: #6a5842;
+  accent-color: #6a5842;
+}
+
+.login{
+  text-align: center;
+
+}
+
+.header{
+  text-align: center;
+  font-size: 40pt;
+}
+
+.clock{
+  font-size: 30pt;
+  text-align: center;
+}
+
+
+input[type="button"]:disabled {
+  background: #4b1d17;
+  accent-color: red;
+}
+
+option{
+  /*background-color: blue;*/
+  color: black;
+}
+
+.fontC{
+  /*accent-color: black;*/
+}
