@@ -19,3 +19,4 @@
 [web-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-1)
 [web-lab-2](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-2)
 [web-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-3)
+[web-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-4)
