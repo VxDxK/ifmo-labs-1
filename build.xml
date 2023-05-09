@@ -1,0 +1,167 @@
+<project name="WEB3" default="compile">
+
+    <property file="build.properties"/>
+    <property name="artifact.name" value="${ant.project.name}-${version}.war"/>
+
+    <path id="classpath">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <target name="compile">
+        <mkdir dir="${class.path}"/>
+        <javac includeantruntime="false" srcdir="${src}" destdir="${class.path}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+
+    <target name="build" depends="compile">
+        <delete file="${target.dir}/${artifact.name}" />
+        <mkdir dir="${web}"/>
+        <mkdir dir="${web.meta-inf}"/>
+        <mkdir dir="${web.resources}"/>
+        <mkdir dir="${web.web-inf}"/>
+        <mkdir dir="${web.web-inf}/classes"/>
+        <mkdir dir="${web.web-inf}/classes/META-INF"/>
+        <mkdir dir="${web.web-inf}/lib"/>
+
+        <copy todir="${web}">
+            <fileset dir="${webapp}"/>
+        </copy>
+
+        <copy todir="${web}/WEB-INF/classes">
+            <fileset dir="${target.dir}/classes"/>
+        </copy>
+
+        <copy todir="${web}/WEB-INF/lib">
+            <fileset dir="lib"/>
+        </copy>
+
+        <copy todir="${web}/WEB-INF/classes/META-INF">
+            <fileset dir="${src}/main/resources/META-INF"/>
+        </copy>
+
+        <copy todir="${web}/WEB-INF/classes">
+            <fileset dir="${target.dir}/classes"/>
+        </copy>
+
+        <manifest file="${web.meta-inf}/MANIFEST.MF">
+            <attribute name="Manifest-Version" value="1.0"/>
+            <attribute name="Package-version" value="${java.version}"/>
+            <attribute name="Created-By" value="${user.name}"/>
+            <attribute name="Main-class" value="Point"/>
+        </manifest>
+
+        <jar destfile="${target.dir}/${artifact.name}"
+             basedir="${target.dir}">
+            <manifest>
+                <attribute name="Package-version" value="${java.version}"/>
+                <attribute name="Main-class" value="Point.class"/>
+            </manifest>
+        </jar>
+    </target>
+
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="true">
+            <classpath refid="classpath"/>
+            <classpath location="${class.path}"/>
+            <formatter type="plain"/>
+            <test name="com.vdk.lab3aaaaaaaa.MonadkaTest">
+            </test>
+        </junit>
+    </target>
+
+
+    <macrodef name="generate-hash">
+        <attribute name="algorithm"/>
+        <sequential>
+            <signjar jar="${target.dir}/${ant.project.name}.war"
+                     alias="ant_keystore"
+                     storepass="password"
+                     digestalg="@{algorithm}"/>
+        </sequential>
+    </macrodef>
+
+    <target name="doc" depends="build">
+        <mkdir dir="${doc.dir}"/>
+        <generate-hash algorithm="MD5"/>
+        <generate-hash algorithm="SHA1"/>
+        <javadoc destdir="${doc.dir}"
+                 author="true"
+                 version="true"
+                 use="true">
+            <classpath refid="classpath"/>
+            <fileset dir="${src}"/>
+        </javadoc>
+        <jar destfile="${doc.dir}/JavaDoc.jar"
+             basedir="${doc.dir}"
+             update="true">
+        </jar>
+    </target>
+
+
+
+    <target name="native2ascii" >
+        <native2ascii src="${src}/main/resources" dest="${target.dir}" includes="native2ascii/*.properties"/>
+    </target>
+
+    <target name="scp" description="Сборка и перемещение собранного war-архива по scp на сервер">
+        <scp file="${build.dir}/${artifact.name}"
+             todir="${scp.user}@${scp.host}:${scp.dir}"
+             keyfile="${scp.keyfile}"
+             port="${scp.port}"
+             trust="true"/>
+    </target>
+
+    <target name="team">
+        <mkdir dir="${ws.dir}"/>
+        <fileset dir="${target.dir}"/>
+
+        <exec executable="svn"
+              dir="/Users/username/svn/web_3_local">
+            <arg value="update"/>
+            <arg value="--revision COMMITTED *"/>
+        </exec>
+        <antcall target="build"/>
+        <copy file="${target.dir}/${ant.project.name}.war"
+              tofile="svn/${ant.project.name}v1.war"
+              overwrite="false">
+        </copy>
+
+        <exec executable="svn"
+              dir="/Users/username/svn/web_3_local">
+            <arg value="update"/>
+            <arg value="--revision COMMITTED - 1 *"/>
+        </exec>
+        <antcall target="build"/>
+        <copy file="${target.dir}/${ant.project.name}.war"
+              tofile="svn/${ant.project.name}v2.war"
+              overwrite="false">
+        </copy>
+
+        <exec executable="svn"
+              dir="/Users/username/svn/web_3_local">
+            <arg value="updeate"/>
+            <arg value="-r COMMITTED - 2 *"/>
+        </exec>
+        <antcall target="build"/>
+        <copy file="${target.dir}/${ant.project.name}.war"
+              tofile="svn/${ant.project.name}v3.war"
+              overwrite="false">
+        </copy>
+        <zip destfile="${target.dir}/team.zip"
+             basedir="${ws.dir}"/>
+    </target>
+
+    <target name="env">
+        <exec dir="${wildfly.dir}" executable="${wildfly.start}">
+            <env key="JAVA_OPTS" value="${wildfly.java.opts}"/>
+        </exec>
+    </target>
+
+</project>
