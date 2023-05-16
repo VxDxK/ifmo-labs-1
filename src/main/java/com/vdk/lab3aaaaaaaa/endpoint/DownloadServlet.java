@@ -27,7 +27,7 @@ public class DownloadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         EntityManager manager = factory.createEntityManager();
-        List<Hit> select_a_from_s338999_hits_a = manager.createQuery("SELECT a from s338999_hits a", Hit.class).getResultList();
+        List<Hit> select_a_from_s338999_hits_a = manager.createQuery("SELECT a from s338999_bebra_hits a", Hit.class).getResultList();
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
         mapper.writeValue(resp.getWriter(), select_a_from_s338999_hits_a);
         manager.close();

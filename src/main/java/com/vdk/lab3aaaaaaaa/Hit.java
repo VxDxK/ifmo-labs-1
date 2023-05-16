@@ -23,8 +23,8 @@ import org.hibernate.annotations.Cache;
 @ManagedBean(name = "hit")
 @SessionScoped
 
-@Entity(name = "s338999_hits")
-@Table(name = "s338999_hits", schema = "public")
+@Entity(name = "s338999_bebra_hits")
+@Table(name = "s338999_bebra_hits", schema = "public")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Hit implements Serializable {
