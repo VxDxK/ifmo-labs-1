@@ -1,0 +1,237 @@
+#!/usr/bin/bash
+U1="marla"
+U2="tyler"
+PWR=file:///home/studs/s338999/MISPI/mispi2-svn
+MPWD=/home/studs/s338999/MISPI/mispi2-svn
+REN=repo
+RWR=$PWR/$REN
+BRS=$RWR/branches
+
+rm -rf $REN
+svnadmin create $REN
+cd $REN
+svn mkdir -m "RAZGROM" $RWR/trunk $BRS $RWR/tags --username=$U1
+svn checkout $RWR/trunk workspace
+cd workspace
+
+rm *
+unzip -o -d . $MPWD/commit0.zip
+svn add * --force 
+svn commit -m "c_r0" --username $U1
+
+svn copy $RWR/trunk $BRS/branch2 -m "create branch2" --username=$U2
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit1.zip
+svn add * --force
+svn commit -m "c_r1" --username=$U2
+
+svn copy $BRS/branch2 $BRS/branch3 -m "create branch3" --username=$U2
+svn switch $BRS/branch3
+rm *
+unzip -o -d . $MPWD/commit2.zip
+svn add * --force
+svn commit -m "c_r2" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit3.zip
+svn add * --force
+svn commit -m "c_r3" --username=$U2
+
+svn switch $RWR/trunk
+#cd workspace
+rm *
+unzip -o -d . $MPWD/commit4.zip
+svn add * --force
+svn commit -m "c_r4" --username=$U1
+
+svn copy $RWR/trunk $BRS/branch4 -m "create branch4" --username=$U2
+svn switch $BRS/branch4
+rm *
+unzip -o -d . $MPWD/commit5.zip
+svn add * --force
+svn commit -m "c_r5" --username=$U2
+
+#commit 6 here 
+
+svn switch $RWR/trunk
+rm *
+unzip -o -d . $MPWD/commit7.zip
+svn add * --force
+svn commit -m "c_r7" --username=$U1
+
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit8.zip
+svn add * --force
+svn commit -m "c_r8" --username=$U2
+
+svn copy $BRS/branch2 $BRS/branch5 -m "create branch5" --username=$U2
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit9.zip
+svn add * --force
+svn commit -m "c_r9" --username=$U2
+
+#commits 10-22 here
+
+svn switch $BRS/branch4
+rm *
+unzip -o -d . $MPWD/commit10.zip
+svn add * --force
+svn commit -m "c_r10" --username=$U2
+
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit11.zip
+svn add * --force
+svn commit -m "c_r11" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit12.zip
+svn add * --force
+svn commit -m "c_r12" --username=$U2
+
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit13.zip
+svn add * --force
+svn commit -m "c_r13" --username=$U2
+
+svn switch $BRS/branch4
+rm *
+unzip -o -d . $MPWD/commit14.zip
+svn add * --force
+svn commit -m "c_r14" --username=$U2
+
+svn switch $RWR/trunk
+rm *
+unzip -o -d . $MPWD/commit15.zip
+svn add * --force
+svn commit -m "c_r15" --username=$U1
+
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit16.zip
+svn add * --force
+svn commit -m "c_r16" --username=$U2
+
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit17.zip
+svn add * --force
+svn commit -m "c_r17" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit18.zip
+svn add * --force
+svn commit -m "c_r18" --username=$U2
+
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit19.zip
+svn add * --force
+svn commit -m "c_r19" --username=$U2
+
+svn switch $BRS/branch3
+rm *
+unzip -o -d . $MPWD/commit20.zip
+svn add * --force
+svn commit -m "c_r20" --username=$U2
+
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit21.zip
+svn add * --force
+svn commit -m "c_r21" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit22.zip
+svn add * --force
+svn commit -m "c_r22" --username=$U2
+
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit23.zip
+svn add * --force
+svn commit -m "c_r23" --username=$U2
+
+#commit 24 here
+
+svn switch $BRS/branch3
+rm *
+unzip -o -d . $MPWD/commit24.zip
+svn add * --force
+svn commit -m "c_r24" --username=$U2
+
+
+svn switch $BRS/branch2
+rm *
+unzip -o -d . $MPWD/commit25.zip
+svn add * --force
+svn commit -m "c_r25" --username=$U2
+
+
+svn switch $BRS/branch3
+
+echo "r" >> svn merge --force $BRS/branch2 $BRS/branch3 --username=$U2
+svn commit -m "merge branch2 into branch3" --username=$U2
+rm *
+unzip -o -d . $MPWD/commit26.zip
+svn add * --force
+svn commit -m "c_r26" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit27.zip
+svn add * --force
+svn commit -m "c_r27" --username=$U2
+
+svn switch $BRS/branch5
+echo "r" >> svn merge --force $BRS/branch3 $BRS/branch5 --username=$U2
+svn commit -m "merge branch3 into branch5" --username=$U2
+rm *
+unzip -o -d . $MPWD/commit28.zip
+svn add * --force
+svn commit -m "c_r28" --username=$U2
+
+svn switch $BRS/branch4
+rm *
+unzip -o -d . $MPWD/commit29.zip
+svn add * --force
+svn commit -m "c_r29" --username=$U2
+
+svn switch $RWR/trunk
+echo "r" >> svn merge --force $BRS/branch4 $RWR/trunk --username=$U1
+svn commit -m "merge branch4 into trunk" --username=$U1
+rm *
+unzip -o -d . $MPWD/commit30.zip
+svn add * --force
+svn commit -m "c_r30" --username=$U1
+
+#commit 31-33 here
+svn switch $BRS/branch5
+rm *
+unzip -o -d . $MPWD/commit31.zip
+svn add * --force
+svn commit -m "c_r31" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit32.zip
+svn add * --force
+svn commit -m "c_r32" --username=$U2
+
+rm *
+unzip -o -d . $MPWD/commit33.zip
+svn add * --force
+svn commit -m "c_r33" --username=$U2
+
+
+svn switch $RWR/trunk
+echo "r" >> svn merge --force $BRS/branch5 $RWR/trunk --username=$U1
+svn commit -m "merge branch5 into trunk" --username=$U1
+rm *
+unzip -o -d . $MPWD/commit34.zip
+svn add * --force
+svn commit -m "c_r34" --username=$U1
+
+

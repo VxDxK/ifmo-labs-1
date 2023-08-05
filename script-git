@@ -1,0 +1,153 @@
+rm -rf ./repo
+mkdir repo
+cd repo
+git init
+git config --local user.name "asgrim"
+git config --local user.email  "asgrim@gmail.com"
+unzip -o -d . ../commit0.zip 
+git add .
+git commit -m "r0"
+git config --local user.name "vxdxk" && git config --local user.email  "vxdxk@gmail.com"
+git checkout -b branch2
+unzip -o -d . ../commit1.zip 
+git add .
+git commit -m "r1"
+git checkout -b branch3
+unzip -o -d . ../commit2.zip 
+git add .
+git commit -m "r2"
+unzip -o -d . ../commit3.zip 
+git add .
+git commit -m "r3"
+git config --local user.name "asgrim" && git config --local user.email  "asgrim@gmail.com"
+git checkout master
+unzip -o -d . ../commit4.zip 
+git add .
+git commit -m "r4"
+git config --local user.name "vxdxk" && git config --local user.email  "vxdxk@gmail.com"
+git checkout -b branch4
+unzip -o -d . ../commit5.zip 
+git add .
+git commit -m "r5"
+unzip -o -d . ../commit6.zip 
+git add .
+git commit -m "r6"
+git config --local user.name "asgrim" && git config --local user.email  "asgrim@gmail.com"
+git checkout master
+unzip -o -d . ../commit7.zip 
+git add .
+git commit -m "r7"
+git config --local user.name "vxdxk" && git config --local user.email  "vxdxk@gmail.com"
+git checkout branch2
+unzip -o -d . ../commit8.zip 
+git add .
+git commit -m "r8"
+git checkout -b branch5
+unzip -o -d . ../commit9.zip 
+git add .
+git commit -m "r9"
+git checkout branch4
+unzip -o -d . ../commit10.zip 
+git add .
+git commit -m "r10"
+git checkout branch5
+unzip -o -d . ../commit11.zip 
+git add .
+git commit -m "r11"
+unzip -o -d . ../commit12.zip 
+git add .
+git commit -m "r12"
+git checkout branch2
+unzip -o -d . ../commit13.zip 
+git add .
+git commit -m "r13"
+git checkout branch4
+unzip -o -d . ../commit14.zip 
+git add .
+git commit -m "r14"
+git config --local user.name "asgrim" && git config --local user.email  "asgrim@gmail.com"
+git checkout master 
+unzip -o -d . ../commit15.zip 
+git add .
+git commit -m "r15"
+git config --local user.name "vxdxk" && git config --local user.email  "vxdxk@gmail.com"
+git checkout branch5
+unzip -o -d . ../commit16.zip 
+git add .
+git commit -m "r16"
+git checkout branch2
+unzip -o -d . ../commit17.zip 
+git add .
+git commit -m "r17"
+unzip -o -d . ../commit18.zip 
+git add .
+git commit -m "r18"
+git checkout branch5
+unzip -o -d . ../commit19.zip 
+git add .
+git commit -m "r19"
+git checkout branch3
+unzip -o -d . ../commit20.zip 
+git add .
+git commit -m "r20"
+git checkout branch5
+unzip -o -d . ../commit21.zip 
+git add .
+git commit -m "r21"
+unzip -o -d . ../commit22.zip 
+git add .
+git commit -m "r22"
+git checkout branch2
+unzip -o -d . ../commit23.zip 
+git add .
+git commit -m "r23"
+git checkout branch3
+unzip -o -d . ../commit24.zip 
+git add .
+git commit -m "r24"
+git checkout branch2
+unzip -o -d . ../commit25.zip 
+git add .
+git commit -m "r25"
+git checkout branch3
+unzip -o -d . ../commit26.zip 
+git add .
+git commit -m "r26"
+git merge branch2 -m "msg" --strategy=ours
+#need to solve conflict here
+git add .
+unzip -o -d . ../commit27.zip
+git add .
+git commit -m "r27"
+git checkout branch5
+unzip -o -d . ../commit28.zip 
+git add .
+git commit -m "r28"
+git merge branch3 -m "msg" --strategy=ours
+git checkout branch4
+unzip -o -d . ../commit29.zip 
+git add .
+git commit -m "r29"
+git config --local user.name "asgrim" && git config --local user.email  "asgrim@gmail.com"
+git checkout master 
+unzip -o -d . ../commit30.zip 
+git add .
+git commit -m "r30"
+git merge branch4 -m "msg" --strategy=ours
+git config --local user.name "vxdxk" && git config --local user.email  "vxdxk@gmail.com"
+git checkout branch5
+unzip -o -d . ../commit31.zip 
+git add .
+git commit -m "r31"
+unzip -o -d . ../commit32.zip 
+git add .
+git commit -m "r32"
+unzip -o -d . ../commit33.zip 
+git add .
+git commit -m "r33"
+git config --local user.name "asgrim" && git config --local user.email  "asgrim@gmail.com"
+git checkout master 
+unzip -o -d . ../commit34.zip 
+git add .
+git commit -m "r34"
+git merge branch5 -m "msg" --strategy=ours
