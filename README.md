@@ -5,6 +5,7 @@
 [it-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-3)
 [it-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-4)
 [mispi-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-1)
+[mispi-lab-2](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-2)
 [mispi-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-3)
 [mispi-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-4)
 [opd-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/opd-lab-1)
