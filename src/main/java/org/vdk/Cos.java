@@ -9,8 +9,6 @@ public class Cos extends SeriesFunction{
 
     @Override
     public Double apply(Double value) {
-        //cos(a) = sin(pi/2 - a)
-
         return sin.apply(Math.PI / 2 - value);
     }
 }

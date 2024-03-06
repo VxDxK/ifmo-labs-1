@@ -5,7 +5,6 @@ public class LabSystem extends SeriesFunction {
     private final Sec sec;
     private final Sin sin;
     private final Ln ln;
-    private final Log log3;
     private final Log log5;
     private final Log log2;
 
@@ -16,7 +15,6 @@ public class LabSystem extends SeriesFunction {
         sec = new Sec(seriesLength);
         sin = new Sin(seriesLength);
         ln = new Ln(seriesLength);
-        log3 = new Log(seriesLength, 3);
         log5 = new Log(seriesLength, 5);
         log2 = new Log(seriesLength, 2);
 
