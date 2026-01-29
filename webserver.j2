@@ -1,0 +1,118 @@
+MODULE main
+VAR
+    {% for c in range(1, max_clients + 1) %}
+    req_{{ c }} : {empty, pending, serving, rejected, timeout};
+    wait_{{ c }} : 0..{{ max_wait_time + 1 }};
+    service_left_{{ c }} : 0..{{ max_service_time }};
+    {% endfor %}
+
+ASSIGN
+    {% for c in range(1, max_clients + 1) %}
+    init(req_{{ c }}) := empty;
+    init(wait_{{ c }}) := 0;
+    init(service_left_{{ c }}) := 0;
+    {% endfor %}
+
+    {% for c in range(1, max_clients + 1) %}
+    next(req_{{ c }}) := case
+        req_{{ c }} = empty & number_pending < {{ queue_length }} : {empty, pending};
+        req_{{ c }} = empty & number_pending >= {{ queue_length }} : {empty, rejected};
+        req_{{ c }} = rejected : empty;
+        req_{{ c }} = timeout : empty;
+        req_{{ c }} = pending & wait_{{ c }} > {{ max_wait_time }} : timeout;
+        req_{{ c }} = pending & (selected_client1 = {{ c }} | selected_client2 = {{ c }}) : serving;
+        req_{{ c }} = pending : pending;
+        req_{{ c }} = serving & next(service_left_{{ c }}) = 0 : empty;
+        TRUE : req_{{ c }};
+    esac;
+
+    next(wait_{{ c }}) := case
+        req_{{ c }} = pending & next(req_{{ c }}) = pending & wait_{{ c }} < {{ max_wait_time + 1 }} : wait_{{ c }} + 1;
+        req_{{ c }} = empty & next(req_{{ c }}) = pending : 0;
+        TRUE : 0;
+    esac;
+
+    next(service_left_{{ c }}) := case
+        req_{{ c }} = pending & (selected_client1 = {{ c }} | selected_client2 = {{ c }}) : {1, 2, 3};
+        req_{{ c }} = serving & service_left_{{ c }} > 1 : service_left_{{ c }} - 1;
+        req_{{ c }} = serving & service_left_{{ c }} = 1 : 0;
+        TRUE : 0;
+    esac;
+    {% endfor %}
+
+DEFINE
+    number_pending := {% for c in range(1, max_clients + 1) %}(req_{{ c }} = pending ? 1 : 0){{ " + " if not loop.last }}{% endfor %};
+    any_pending := number_pending > 0;
+    free_threads := {{ num_threads }} - ({% for c in range(1, max_clients + 1) %}(req_{{ c }} = serving ? 1 : 0){{ " + " if not loop.last }}{% endfor %});
+    has_timeout := {% for c in range(1, max_clients + 1) %}(req_{{ c }} = timeout){{ " | " if not loop.last }}{% endfor %};
+
+    {% if algorithm == 'fair' %}
+    {% for w in range(0, max_wait_time + 1) %}
+    has_wait_{{ w }} := {% for c in range(1, max_clients + 1) %}(req_{{ c }} = pending & wait_{{ c }} = {{ w }}){{ " | " if not loop.last }}{% endfor %};
+    count_wait_{{ w }} := {% for c in range(1, max_clients + 1) %}(req_{{ c }} = pending & wait_{{ c }} = {{ w }} ? 1 : 0){{ " + " if not loop.last }}{% endfor %};
+    {% endfor %}
+    max_wait_queued := case
+        {% for w in range(max_wait_time, -1, -1) %}
+        has_wait_{{ w }} : {{ w }};
+        {% endfor %}
+        TRUE : 0;
+    esac;
+
+    count_at_max := case
+        {% for w in range(0, max_wait_time + 1) %}
+        max_wait_queued = {{ w }} : count_wait_{{ w }};
+        {% endfor %}
+        TRUE : 0;
+    esac;
+
+    second_max_wait := case
+        count_at_max > 1 : max_wait_queued;
+        TRUE : case
+            {% for w in range(max_wait_time - 1, -1, -1) %}
+            has_wait_{{ w }} : {{ w }};
+            {% endfor %}
+            TRUE : 0;
+        esac;
+    esac;
+    {% endif %}
+
+    selected_client1 := case
+        free_threads = 0 | !any_pending : 0;
+        {% if algorithm == 'unfair' %}
+        {% for c in range(1, max_clients + 1) %}
+        req_{{ c }} = pending : {{ c }};
+        {% endfor %}
+        {% else %}
+        {% for c in range(1, max_clients + 1) %}
+        req_{{ c }} = pending & wait_{{ c }} = max_wait_queued : {{ c }};
+        {% endfor %}
+        {% endif %}
+        TRUE : 0;
+    esac;
+
+    selected_client2 := case
+        free_threads < 2 | !any_pending | selected_client1 = 0 : 0;
+        {% if algorithm == 'unfair' %}
+        {% for c in range(1, max_clients + 1) %}
+        req_{{ c }} = pending & {{ c }} != selected_client1 : {{ c }};
+        {% endfor %}
+        {% else %}
+        {% for c in range(1, max_clients + 1) %}
+        req_{{ c }} = pending & wait_{{ c }} = second_max_wait & {{ c }} != selected_client1 : {{ c }};
+        {% endfor %}
+        {% endif %}
+        TRUE : 0;
+    esac;
+
+{% if algorithm == 'fair' %}
+{% for c in range(1, max_clients + 1) %}
+JUSTICE req_{{ c }} = pending;
+{% endfor %}
+{% endif %}
+
+-- Specifications
+{% for c in range(1, max_clients + 1) %}
+CTLSPEC NAME service_{{ c }} := AG(req_{{ c }} = pending -> AF (req_{{ c }} = serving))
+{% endfor %}
+CTLSPEC NAME no_timeout := AG(!has_timeout)
+CTLSPEC NAME safety_serve := AG(any_pending & free_threads > 0 -> selected_client1 != 0)
