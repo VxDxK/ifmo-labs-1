@@ -2,6 +2,8 @@
 ### it - Информатика
 ### opd - ОПД
 ### proga - Программирование
+[HEAD](https://github.com/VxDxK/ifmo-labs-1/tree/HEAD)
+[](https://github.com/VxDxK/ifmo-labs-1/tree/)
 [it-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-3)
 [it-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-4)
 [mispi-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-1)
@@ -22,6 +24,7 @@
 [proga-lab-8](https://github.com/VxDxK/ifmo-labs-1/tree/proga-lab-8)
 [tpo-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/tpo-lab-1)
 [tpo-lab-2](https://github.com/VxDxK/ifmo-labs-1/tree/tpo-lab-2)
+[vap-1](https://github.com/VxDxK/ifmo-labs-1/tree/vap-1)
 [web-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-1)
 [web-lab-2](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-2)
 [web-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/web-lab-3)
