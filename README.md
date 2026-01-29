@@ -4,6 +4,7 @@
 ### proga - Программирование
 [HEAD](https://github.com/VxDxK/ifmo-labs-1/tree/HEAD)
 [](https://github.com/VxDxK/ifmo-labs-1/tree/)
+[fp](https://github.com/VxDxK/ifmo-labs-1/tree/fp)
 [it-lab-3](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-3)
 [it-lab-4](https://github.com/VxDxK/ifmo-labs-1/tree/it-lab-4)
 [mispi-lab-1](https://github.com/VxDxK/ifmo-labs-1/tree/mispi-lab-1)
